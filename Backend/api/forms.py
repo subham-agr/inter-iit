@@ -2,7 +2,7 @@ from socket import fromshare
 from django import forms
 from api.models import StudentForm #models.py
 
-class StudentForm(forms.ModelForm):
+class StudentForms(forms.ModelForm):
     class Meta:
         model = StudentForm
         fields = "__all__"
