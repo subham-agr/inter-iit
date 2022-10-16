@@ -15,6 +15,9 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import events from "../../assets/events";
 import './otherskills.css'
 
 const ITEM_HEIGHT = 48;
@@ -102,36 +105,23 @@ export default function Otherskill() {
         <DialogContent>
           <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
           <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-name-label">Skills</InputLabel>
-        <Select
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
+          <Autocomplete
           multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Name" />}
-          MenuProps={MenuProps}
-          renderValue={() => (
-            <div></div>
-          )}
-        >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              // style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {personName.map((value) => (
-                // <Chip key={value} label={value} />
-                <Chip label={value} variant="outlined" key={value} onDelete={handleDelete(value)}/>
-              ))}
-        </Box>
-      </FormControl>
+          id="tags-outlined"
+          options={events}
+          getOptionLabel={(option) => option.label}
+          // filterSelectedOptions
+          // defaultValue={[events[0]]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              // variant="standard"
+              label="Skills"
+              // placeholder="Favorites"
+            />
+            )}
+          />
+        </FormControl>
           </Box>
         </DialogContent>
         <DialogActions>

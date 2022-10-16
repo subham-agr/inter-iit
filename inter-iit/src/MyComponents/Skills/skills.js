@@ -15,6 +15,9 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import events from '../../assets/events'
 import './skills.css'
 
 const ITEM_HEIGHT = 48;
@@ -27,19 +30,6 @@ const MenuProps = {
     },
   },
 };
-
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
 
 function getStyles(name, personName, theme) {
   return {
@@ -116,8 +106,24 @@ export default function Skill() {
         <DialogContent>
           <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
           <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-name-label">Skills</InputLabel>
-        <Select
+        {/* <InputLabel id="demo-multiple-name-label">Skills</InputLabel> */}
+        <Autocomplete
+        multiple
+        id="tags-outlined"
+        options={events}
+        getOptionLabel={(option) => option.label}
+        // filterSelectedOptions
+        // defaultValue={[events[0]]}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            // variant="standard"
+            label="Skills"
+            // placeholder="Favorites"
+          />
+        )}
+      />
+        {/* <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
           multiple
@@ -144,7 +150,7 @@ export default function Skill() {
                 // <Chip key={value} label={value} />
                 <Chip label={value} variant="outlined" key={value} onDelete={handleDelete(value)}/>
               ))}
-        </Box>
+        </Box> */}
       </FormControl>
           </Box>
         </DialogContent>
