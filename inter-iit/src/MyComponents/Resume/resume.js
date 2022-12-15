@@ -13,6 +13,7 @@ var formData;
 
 class Resume extends React.Component{
 
+
   // constructor(){
   //   super();
   //   this.state={
@@ -36,6 +37,8 @@ class Resume extends React.Component{
   changeHandler(event){
     const files = event.target.files
     formData = new FormData();
+    formData.append('name',JSON.parse(localStorage.getItem('interiit_data')).data.name);
+    formData.append('roll_number',JSON.parse(localStorage.getItem('interiit_data')).data.roll_number)
     formData.append('file',files[0]);
     formData.append('skills',JSON.stringify(skills));
     formData.append('otherskills',JSON.stringify(otherskills));
@@ -50,7 +53,9 @@ class Resume extends React.Component{
   //submit
   submitForm(e){
     e.preventDefault();
-    axios.post('http://localhost:8000/student/', formData).then((resp)=>{ console.log(resp) });
+    const token = JSON.parse(localStorage.getItem('interiit_data')).data.token;
+    console.log(token);
+    axios.post('http://localhost:8000/student', formData, {headers: {"Authorization": `Token ${token}`}}).then((resp)=>{ console.log(resp) });
       // headers: {
       //   'Content-type': 'application/json; charset=UTF-8',
       // },

@@ -4,6 +4,7 @@ from django.db import models
 
 class StudentForm(models.Model):
     roll_number = models.CharField(max_length=2000,blank=True,null=True)
+    name = models.CharField(max_length=2000,blank=True,null=True)
     topskills = models.CharField(max_length=2000,blank=True,null=True)
     skills = models.CharField(max_length=2000,blank=True,null=True)
     resume = models.FileField(blank=True,null=True)
