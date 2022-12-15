@@ -50,7 +50,7 @@ function Mainpage() {
       // setLoading(false);
 
     }).finally( ()=>{
-      if(localStorage.getItem('interiit_data')===null){
+      if(localStorage.getItem('interiit_code')===null){
         alert("LOGIN PLEASE")
         window.location.replace('http://localhost:3000');
       }

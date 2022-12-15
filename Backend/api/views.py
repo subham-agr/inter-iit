@@ -31,16 +31,16 @@ def posts(request):
     data = JSONParser().parse(request)
     print(data.get('code'))
     r = requests.post('https://gymkhana.iitb.ac.in/profiles/oauth/token/', data='code='+data.get('code')+'&grant_type=authorization_code', headers=headers) 
-    b = requests.get('https://gymkhana.iitb.ac.in/profiles/user/api/user/?fields=first_name,last_name,profile_picture', headers={'Authorization':'Bearer '+r.json()['access_token']})
+    b = requests.get('https://gymkhana.iitb.ac.in/profiles/user/api/user/?fields=first_name,last_name,profile_picture,mobile,roll_number,contacts', headers={'Authorization':'Bearer '+r.json()['access_token']})
     data=b.json()
     print(data)
-    user_data=OrderedDict([('name',data['first_name'] + ' ' + data['last_name']),('picture',data['profile_picture'])])
+    user_data=OrderedDict([('name',data['first_name'] + ' ' + data['last_name']),('picture',data['profile_picture']),('roll_number',data['roll_number']),('phone',data['mobile']),('contacts',data['contacts'][0]['number'])])
     return JsonResponse(user_data)
 
 @api_view(['GET', 'POST', 'PUT'])
 def index(request):
     if request.method == 'POST':
-        print(request)
+        print(request.POST)
         student = StudentForms(request.POST, request.FILES)  
         print(student)
         # return HttpResponse("File uploaded successfully")
