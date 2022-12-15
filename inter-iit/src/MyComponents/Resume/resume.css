@@ -4,3 +4,50 @@
     background-color: red;
     color: white;
 }
+
+.forms{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* flex-direction: row; */
+}
+
+.choose{
+    border: 1px solid rgba(25, 118, 210, 0.5);
+    color: #1976d2;
+    background-color: white;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 5px 15px;
+    border-radius: 4px;
+    /* width: 20vw; */
+    margin-right: 10px;
+}
+
+/* .choose:hover{
+    color: white;
+    background-color: #091228;
+    border: 2px solid black;
+} */
+
+.btn1{
+    padding: 10px;
+    border: 1px solid rgba(25, 118, 210, 0.5);
+    color: #1976d2;
+    background-color: white;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 5px 15px;
+    border-radius: 4px;
+}
+
+.btn1:hover{
+    cursor: pointer;
+}
+
+input#file-upload-button{
+    background-color: white;
+    border-radius: 2px solid red;
+}

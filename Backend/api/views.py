@@ -10,6 +10,7 @@ from typing import OrderedDict
 
 from django.shortcuts import render
 from django.http.response import JsonResponse
+from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 
 import requests
@@ -36,17 +37,21 @@ def posts(request):
     user_data=OrderedDict([('name',data['first_name'] + ' ' + data['last_name']),('picture',data['profile_picture'])])
     return JsonResponse(user_data)
 
+@api_view(['GET', 'POST', 'PUT'])
 def index(request):
-    if request.method == 'POST':  
+    if request.method == 'POST':
+        print(request)
         student = StudentForms(request.POST, request.FILES)  
+        print(student)
+        # return HttpResponse("File uploaded successfully")
         if student.is_valid():  
             handle_uploaded_file(request.FILES['file'])  
             model_instance = student.save(commit=False)
             model_instance.save()
             return HttpResponse("File uploaded successfuly") 
-    else:
-        student = StudentForms()
-        return render(request, "index.html", {'form':student})
+    # else:
+    #     student = StudentForms()
+    #     return render(request, "index.html", {'form':student})
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset=StudentForm.objects.all()

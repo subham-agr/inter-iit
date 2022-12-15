@@ -40,6 +40,9 @@ function getStyles(name, personName, theme) {
   };
 }
 
+// const [skillsarray, setskillsarray] = React.useState(["Test"]);
+var skills;
+
 export default function Skill() {
   // constructor(props) {
   //   super(props);
@@ -49,25 +52,27 @@ export default function Skill() {
   // };
 
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [isselect, setselect] = React.useState(false);
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+  // const handleChange = (event) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setPersonName(
+  //     // On autofill we get a stringified value.
+  //     typeof value === "string" ? value.split(",") : value
+  //   );
+  // };
 
-  const handleDelete = (chipToDelete) => () => {
-    setPersonName((personName) =>
-      personName.filter((person) => person !== chipToDelete)
-    );
-  };
+  var array = [];
+
+  function handleChange(event){
+    // setskillsarray([newvalue]);
+    array.push(event.target.innerHTML)
+    console.log(array)
+    // console.log(skillsarray)
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -77,6 +82,17 @@ export default function Skill() {
     if (reason !== 'backdropClick') {
       setOpen(false);
     }
+    console.log(array)
+    // setskillsarray(array)
+    skills = array
+    console.log(JSON.stringify(skills))
+    // fetch('http://localhost:8000/student/',{
+    //   method:'POST',
+    //   body:JSON.stringify(skillsarray)
+    //   // headers: {
+    //   //   'Content-type': 'application/json; charset=UTF-8',
+    //   // },
+    // }).then((resp)=>{resp.json().then((result)=>{console.warn("result",result)}) });
     // if(personName !== []){
     //   setselect(true);
     // }
@@ -86,7 +102,7 @@ export default function Skill() {
     // console.log(isselect)
   };
 
-    
+  // console.log(JSON.stringify(skillsarray))
 
   // const handleDelete = (chipToDelete) => () => {
   //   setPersonName((personName) => personName.filter((person) => person !== chipToDelete))
@@ -114,6 +130,7 @@ export default function Skill() {
         getOptionLabel={(option) => option.label}
         // filterSelectedOptions
         // defaultValue={[events[0]]}
+        onChange={(event)=>handleChange(event)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -162,3 +179,6 @@ export default function Skill() {
     </div>
   );
 }
+
+export {skills}
+// export {skillsarray}

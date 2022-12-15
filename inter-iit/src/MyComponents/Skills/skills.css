@@ -5,3 +5,12 @@
 .select{
     margin: 2rem;
 }
+
+.rank{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: blue;
+    color: white;
+    border: none;
+}
