@@ -35,6 +35,7 @@ class Resume extends React.Component{
 
   changeHandler(event){
     const files = event.target.files
+    const rollnumber = localStorage.getItem('interiit_data').data
     formData = new FormData();
     formData.append('file',files[0]);
     formData.append('skills',JSON.stringify(skills));
@@ -49,8 +50,9 @@ class Resume extends React.Component{
 
   //submit
   submitForm(e){
-    e.preventDefault();
+    // e.preventDefault();
     axios.post('http://localhost:8000/student/', formData).then((resp)=>{ console.log(resp) });
+    window.location.replace("http://localhost:3000/dashboard2")
       // headers: {
       //   'Content-type': 'application/json; charset=UTF-8',
       // },
@@ -75,7 +77,7 @@ class Resume extends React.Component{
         <form className='forms'>
           {/* {% csrf_token %} */}
           <input className='choose' name='upload' onChange={(e) => this.changeHandler(e)} type="file" /> <br />
-          <button className='btn1' type='submit' onClick={(e) => this.submitForm(e)}>Upload</button>
+          <button className='btn1' type='submit' onClick={(e) => this.submitForm(e)}>Submit</button>
         </form>
       </div>
       );
