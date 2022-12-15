@@ -54,7 +54,7 @@ box-shadow: 2px 4px 13px -3px rgba(0,0,0,0.75);
     /* border: 2px solid black; */
 }
 
-.footer{
+.footers{
     position: fixed;
     bottom: 0;
     margin: 1rem;

@@ -53,6 +53,10 @@ function getStyles(name, personName, theme) {
   };
 }
 
+// const [otherskillsarray, setotherskills] = React.useState([]);
+// export {otherskillsarray}
+var otherskills;
+
 export default function Otherskill() {
   // constructor(props) {
   //   super(props);
@@ -62,24 +66,28 @@ export default function Otherskill() {
   // };
 
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
   const [open, setOpen] = React.useState(false);
 
+  var array = [];
+
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    // const {
+    //   target: { value },
+    // } = event;
+    // setPersonName(
+    //   // On autofill we get a stringified value.
+    //   typeof value === "string" ? value.split(",") : value
+    // );
+
+    array.push(event.target.innerHTML)
+    console.log(array)
   };
 
-  const handleDelete = (chipToDelete) => () => {
-    setPersonName((personName) =>
-      personName.filter((person) => person !== chipToDelete)
-    );
-  };
+  // const handleDelete = (chipToDelete) => () => {
+  //   setPersonName((personName) =>
+  //     personName.filter((person) => person !== chipToDelete)
+  //   );
+  // };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -89,6 +97,10 @@ export default function Otherskill() {
     if (reason !== 'backdropClick') {
       setOpen(false);
     }
+    console.log(array)
+    // setotherskills(array)
+    otherskills = array
+    console.log(otherskills)
   };
 
   // const handleDelete = (chipToDelete) => () => {
@@ -112,11 +124,12 @@ export default function Otherskill() {
           getOptionLabel={(option) => option.label}
           // filterSelectedOptions
           // defaultValue={[events[0]]}
+          onChange={(event)=>handleChange(event)}
           renderInput={(params) => (
             <TextField
               {...params}
               // variant="standard"
-              label="Skills"
+              label="OtherSkills"
               // placeholder="Favorites"
             />
             )}
@@ -132,3 +145,5 @@ export default function Otherskill() {
     </div>
   );
 }
+
+export {otherskills}

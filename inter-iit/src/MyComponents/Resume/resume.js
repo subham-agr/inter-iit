@@ -1,45 +1,63 @@
-import { upload } from '@testing-library/user-event/dist/upload';
-import React, { useState } from 'react'
+// import { upload } from '@testing-library/user-event/dist/upload';
+import React, { useRef, useState } from 'react'
 import './resume.css'
+import { skills } from '../Skills/skills';
+// import { otherskills } from '../otherskills/otherskills'
+import {otherskills} from '../otherskills/otherskills'
+import axios from 'axios'
+
+const baseURL = "http://localhost:8000/student/";
+
+// const data = useRef({});
+var formData;
 
 class Resume extends React.Component{
-  constructor(){
-    super();
-    this.state={
-      file:''
-    }
-    this.changeHandler=this.changeHandler.bind(this);
-  }
+
+  // constructor(){
+  //   super();
+  //   this.state={
+  //     FormData: formData
+  //   }
+  //   this.changeHandler = this.changeHandler.bind(this);  
+  // }
 
   //change Handler
+  // changeHandler(event){
+  //   this.setState({
+  //     // event.target.files[0]
+  //     [event.target.files[0]]
+  //   });
+  //   console.log(event.target.files[0])
+  //   console.log(this.state)
+  //   console.log(JSON.stringify(this.state));
+  //   console.log("file changed");
+  // }
+
   changeHandler(event){
-    console.log(event)
-    this.setState({
-      [event.target.name]:event.target.value
-    });
-    console.log("file changed");
+    const files = event.target.files
+    formData = new FormData();
+    formData.append('file',files[0]);
+    formData.append('skills',JSON.stringify(skills));
+    formData.append('otherskills',JSON.stringify(otherskills));
+    console.log(formData)
+    // this.setState(formData)
+    // console.log(this.state)
+    // console.log(event.target.files[0])
+    // console.log(files);
+    // console.log(JSON.stringify(files));
   }
 
   //submit
   submitForm(e){
     e.preventDefault();
-    fetch('/student/',{
-      method:'POST',
-      body:JSON.stringify(this.state),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-    .then(response=>response.json())
-        .then((data)=>console.log(data));
-
-        this.setState({
-            file:'',
-        })
-    .catch(error => {
-          this.setState({ errorMessage: error.toString() });
-          console.error('There was an error!', error);
-      });
+    axios.post('http://localhost:8000/student/', formData).then((resp)=>{ console.log(resp) });
+      // headers: {
+      //   'Content-type': 'application/json; charset=UTF-8',
+      // },
+    // .catch(error => {
+    //       this.setState({ errorMessage: error.toString() });
+    //       console.error('There was an error!', error);
+    //   });
   }
 
 
@@ -49,21 +67,19 @@ class Resume extends React.Component{
   //   // document.getElementsById("upload").style.backgroundColor = "green";
   // }
   // var upload = "Not Uploaded"
-
-  render() {
-    return (
-      <div>
-      <h1>Resume /CV / any similar document</h1>
-      <p>Since you already have this invite only link, we know that you're good fit. The resume is just to understand your experience in the quickest way. If you have other documents to show your skills and experience that can help in Inter IIT, feel free to upload them as well. (Highlighting this document will make our life easier)</p>
-      {/* <button id='upload' className='upload'>upload</button> */}
-      <form>
-        {/* {% csrf_token %} */}
-        <input name='file' value={this.state.file} onChange={this.changeHandler} type="file" /> <br />
-        <button type='submit' onClick={this.submitForm}>Upload</button>
-      </form>
-    </div>
-    )
+    render(){
+      return (
+        <div>
+        <p>Since you already have this invite only link, we know that you're good fit. The resume is just to understand your experience in the quickest way. If you have other documents to show your skills and experience that can help in Inter IIT, feel free to upload them as well. (Highlighting this document will make our life easier)</p>
+        {/* <button id='upload' className='upload'>upload</button> */}
+        <form className='forms'>
+          {/* {% csrf_token %} */}
+          <input className='choose' name='upload' onChange={(e) => this.changeHandler(e)} type="file" /> <br />
+          <button className='btn1' type='submit' onClick={(e) => this.submitForm(e)}>Upload</button>
+        </form>
+      </div>
+      );
+    }
   }
-}
 
-export default Resume
+  export default Resume;
