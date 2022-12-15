@@ -37,6 +37,12 @@ function Navbar(){
     setAnchorElUser(null);
   };
 
+  function handleLogout () {
+    localStorage.removeItem('interiit_data')
+    localStorage.removeItem('interiit_code')
+    window.location.replace("http://localhost:3000");
+  }
+
   return (
     <div className="navbar">
         <AppBar position="static">
@@ -93,9 +99,9 @@ function Navbar(){
             >
                 <MenuItem key="Logout" onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <a href="/">
+                    <button onClick={handleLogout} href="/">
                       Logout
-                    </a>
+                    </button>
                   </Typography>
                 </MenuItem>
             </Menu>
