@@ -48,7 +48,7 @@ class Resume extends React.Component{
   //submit
   submitForm(e){
     e.preventDefault();
-    axios.post('http://localhost:8000/student/', formData).then((resp)=>{ console.log(resp) });
+    // axios.post('http://localhost:8000/student/', formData).then((resp)=>{ console.log(resp) });
     const token = JSON.parse(localStorage.getItem('interiit_data')).data.token;
     console.log(token);
     axios.post('http://localhost:8000/student', formData, {headers: {"Authorization": `Token ${token}`}}).then((resp)=>{ console.log(resp) });
