@@ -1,0 +1,31 @@
+.footers{
+    position: fixed;
+    bottom: 0;
+    /* width: 100vw; */
+    /* margin: 1rem; */
+}
+
+.card4{
+    display: flex;
+    width: 70vw;
+    height: 80vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.notext{
+    text-decoration: none;
+}
+
+.card3{
+    display: flex;
+    width: 40vw;
+    /* height: 40vh; */
+    align-items: center;
+    justify-content: center;
+}
+
+.details{
+    display: flex;
+    justify-content: space-between;
+}

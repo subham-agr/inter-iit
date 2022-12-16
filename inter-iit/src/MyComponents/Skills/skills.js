@@ -86,6 +86,7 @@ export default function Skill() {
     // setskillsarray(array)
     skills = array
     console.log(JSON.stringify(skills))
+  };
     // fetch('http://localhost:8000/student/',{
     //   method:'POST',
     //   body:JSON.stringify(skillsarray)
@@ -100,7 +101,6 @@ export default function Skill() {
     //   setselect(false);
     // }
     // console.log(isselect)
-  };
 
   // console.log(JSON.stringify(skillsarray))
 

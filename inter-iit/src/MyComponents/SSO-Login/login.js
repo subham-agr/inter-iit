@@ -11,7 +11,7 @@ function Login() {
         </div>
         <a className='btn link' href="https://gymkhana.iitb.ac.in/profiles/oauth/authorize/?client_id=MmuuRsRfMQaYJc2V8ABVq9CHcTvFC0GwCn7Mh5OZ&response_type=code&scope=profile picture program phone&redirect_uri=http://localhost:3000/dashboard">Login with SSO</a>
         <div className="footers">
-        Developed by Subham Agrawal | Institute Technical Council with <span className='heart'>♥</span>
+        Developed by Web Team | Institute Technical Council with <span className='heart'>♥</span>
       </div>
       </div>
     </div>
