@@ -5,13 +5,12 @@ import { skills } from '../Skills/skills';
 // import { otherskills } from '../otherskills/otherskills'
 import {otherskills} from '../otherskills/otherskills'
 import axios from 'axios'
-
 const baseURL = "http://localhost:8000/student/";
-
 // const data = useRef({});
 var formData;
 
 class Resume extends React.Component{
+
 
   // constructor(){
   //   super();
@@ -20,7 +19,6 @@ class Resume extends React.Component{
   //   }
   //   this.changeHandler = this.changeHandler.bind(this);  
   // }
-
   //change Handler
   // changeHandler(event){
   //   this.setState({
@@ -32,11 +30,11 @@ class Resume extends React.Component{
   //   console.log(JSON.stringify(this.state));
   //   console.log("file changed");
   // }
-
   changeHandler(event){
     const files = event.target.files
-    const rollnumber = localStorage.getItem('interiit_data').data
     formData = new FormData();
+    formData.append('name',JSON.parse(localStorage.getItem('interiit_data')).data.name);
+    formData.append('roll_number',JSON.parse(localStorage.getItem('interiit_data')).data.roll_number)
     formData.append('file',files[0]);
     formData.append('skills',JSON.stringify(skills));
     formData.append('otherskills',JSON.stringify(otherskills));
@@ -47,12 +45,13 @@ class Resume extends React.Component{
     // console.log(files);
     // console.log(JSON.stringify(files));
   }
-
   //submit
   submitForm(e){
-    // e.preventDefault();
+    e.preventDefault();
     axios.post('http://localhost:8000/student/', formData).then((resp)=>{ console.log(resp) });
-    window.location.replace("http://localhost:3000/dashboard2")
+    const token = JSON.parse(localStorage.getItem('interiit_data')).data.token;
+    console.log(token);
+    axios.post('http://localhost:8000/student', formData, {headers: {"Authorization": `Token ${token}`}}).then((resp)=>{ console.log(resp) });
       // headers: {
       //   'Content-type': 'application/json; charset=UTF-8',
       // },
@@ -61,8 +60,6 @@ class Resume extends React.Component{
     //       console.error('There was an error!', error);
     //   });
   }
-
-
   // if(status){
   //   setupload("Uploaded");
   //   document.getElementById("upload").style.backgroundColor = "green";
@@ -77,11 +74,10 @@ class Resume extends React.Component{
         <form className='forms'>
           {/* {% csrf_token %} */}
           <input className='choose' name='upload' onChange={(e) => this.changeHandler(e)} type="file" /> <br />
-          <button className='btn1' type='submit' onClick={(e) => this.submitForm(e)}>Submit</button>
+          <button className='btn1' type='submit' onClick={(e) => this.submitForm(e)}>Upload</button>
         </form>
       </div>
       );
     }
   }
-
   export default Resume;
