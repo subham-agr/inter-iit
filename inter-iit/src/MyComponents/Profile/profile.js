@@ -1,7 +1,6 @@
 import React from "react";
 import Footer from "../footer/footer";
 import Navbar from "../Navbar/navbar";
-import "./dashboard.css";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -43,7 +42,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import Drawer from '@mui/material/Drawer';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { Outlet,Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 // import TextField from "@mui/material/TextField";
 
 const drawerWidth = 240;
@@ -77,8 +76,8 @@ function getStyles(name, personName, theme) {
   };
 }
 
-function Dashboard() {
-  const theme = useTheme();
+function Profile() {
+    const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [isselect, setselect] = React.useState(false);
 
@@ -91,35 +90,63 @@ function Dashboard() {
       setOpen(false);
     }
   };
-
   return (
-    <div>
-      <Navbar />
-      <div>
-        <Grid container>
-        <Grid item xs={3}>
-          <Item>
-            <div className="button-cont" fullWidth>
-            <Link to="problems" className="notext"><Button startIcon={<DashboardIcon />} sx={{width: 200, marginBottom: 1, color: "black"}}>Dashboard</Button></Link>
-            </div>
-            <div className="button-cont" fullWidth>
-            <Link to="profile" className="notext"><Button startIcon={<AccountCircleIcon />} sx={{width: 200, color: "black"}}>Profile</Button></Link>
-            </div>
-          </Item>
-        </Grid>
-        <Grid item xs={9}>
-          <Item>
-            <Outlet/>
-          </Item>
-        </Grid>
-        </Grid>
-        </div>
-      <div className="footers">
-        <Footer />
-      </div>
-      {/* <Footer /> */}
+    <div><h1>Hi Subham Agrawal!</h1>
+    <div className="card4">
+          <TableContainer component={Paper} sx={{ maxWidth: 450 }}>
+            <Table sx={{ minWidth: 450 }} aria-label="simple table">
+              <TableBody>
+                <TableRow
+                  // key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    LDAP:
+                  </TableCell>
+                  <TableCell align="right">"LDAP"</TableCell>
+                </TableRow>
+                <TableRow
+                  // key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    Batch:
+                  </TableCell>
+                  <TableCell align="right">"LDAP"</TableCell>
+                </TableRow>
+                <TableRow
+                  // key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    Branch:
+                  </TableCell>
+                  <TableCell align="right">"LDAP"</TableCell>
+                </TableRow>
+                <TableRow
+                  // key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    Programme:
+                  </TableCell>
+                  <TableCell align="right">"LDAP"</TableCell>
+                </TableRow>
+                <TableRow
+                  // key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    Resume:
+                  </TableCell>
+                  <TableCell align="right">"LDAP"</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
     </div>
-  );
+    </div>
+  )
 }
 
-export default Dashboard;
+export default Profile

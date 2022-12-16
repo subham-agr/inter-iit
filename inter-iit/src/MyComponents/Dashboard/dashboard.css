@@ -7,8 +7,20 @@
 
 .card4{
     display: flex;
-    width: 100vw;
+    width: 70vw;
     height: 80vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.notext{
+    text-decoration: none;
+}
+
+.card3{
+    display: flex;
+    width: 40vw;
+    /* height: 40vh; */
     align-items: center;
     justify-content: center;
 }
