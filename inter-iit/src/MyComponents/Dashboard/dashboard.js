@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../footer/footer";
 import Navbar from "../Navbar/navbar";
 import "./dashboard.css";
@@ -44,7 +44,7 @@ import Drawer from '@mui/material/Drawer';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Outlet,Link } from 'react-router-dom';
-// import TextField from "@mui/material/TextField";
+import axios from "axios";
 
 const drawerWidth = 240;
 const ITEM_HEIGHT = 48;
@@ -78,9 +78,23 @@ function getStyles(name, personName, theme) {
 }
 
 function Dashboard() {
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [isselect, setselect] = React.useState(false);
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('interiit_data')).data.token;
+    const data = {
+      roll_number: JSON.parse(localStorage.getItem('interiit_data')).data.roll_number
+    }
+    axios.post('http://localhost:8000/check_reg', data, {headers: {"Authorization": `Token ${token}`}}).then((resp)=>{
+      console.log(resp.data.success)
+      if(resp.data.success === false){
+        window.location.replace("http://localhost:3000/register")
+      }
+    });
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -114,7 +128,7 @@ function Dashboard() {
         </Grid>
         </Grid>
         </div>
-      <div className="footers">
+      <div className="footers-dash">
         <Footer />
       </div>
       {/* <Footer /> */}
