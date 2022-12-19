@@ -119,6 +119,9 @@ function Dashboard() {
             <div className="button-cont" fullWidth>
             <Link to="profile" className="notext"><Button startIcon={<AccountCircleIcon />} sx={{width: 200, color: "black"}}>Profile</Button></Link>
             </div>
+            {/* <div className="button-cont" fullWidth>
+            <Link to="problems" className="notext"><Button startIcon={<AccountCircleIcon />} sx={{width: 200, color: "black"}}>Problems</Button></Link>
+            </div> */}
           </Item>
         </Grid>
         <Grid item xs={9}>
