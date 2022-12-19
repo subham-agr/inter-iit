@@ -83,7 +83,7 @@ def ps(request):
         for i in ps:
             reg = Registration.objects.filter(ps_id = i.ps_id, roll_number = data['roll_number'])
             signed = len(reg)!=0
-            p.append({'id':i.ps_id,'name':i.ps_name,'link':i.ps_pdf.url,'signed':signed})
+            p.append({'id':i.ps_id,'name':i.ps_name,'link':request.build_absolute_uri(i.ps_pdf.url),'signed':signed})
         return JsonResponse(p,safe=False)
 
 @api_view(['POST'])

@@ -44,7 +44,7 @@ function Navbar(){
     window.location.replace("http://localhost:3000");
   }
 
-  const profilelink = JSON.parse(localStorage.getItem('interiit_data')).data.picture;
+  const profilelink = 'https://gymkhana.iitb.ac.in' + JSON.parse(localStorage.getItem('interiit_data')).data.picture;
 
   return (
     <div className="navbar">
