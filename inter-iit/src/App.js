@@ -6,6 +6,7 @@ import Mainpage from './MyComponents/MainPage/mainpage';
 import Dashboard from './MyComponents/Dashboard/dashboard';
 import Profile from './MyComponents/Profile/profile';
 import Problems from './MyComponents/Problems/problems';
+import Authenticate from './MyComponents/Authenticate/authenticate';
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
       <BrowserRouter>
       <Routes>
           <Route path="/" element={<Login />}></Route>
-          <Route path="/dashboard" element={<Mainpage />}></Route>
-          <Route path="/dashboard2" element={<Dashboard />}>
+          <Route path="/register" element={<Mainpage />}></Route>
+          <Route path="/authen" element={<Authenticate />} />
+          <Route path="/dashboard" element={<Dashboard />}>
             <Route path='profile' element={<Profile />}></Route>
             <Route path='problems' element={<Problems />}></Route>
           </Route>

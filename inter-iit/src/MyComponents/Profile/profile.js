@@ -91,7 +91,7 @@ function Profile() {
     }
   };
   return (
-    <div><h1>Hi Subham Agrawal!</h1>
+    <div><h1>Hi {JSON.parse(localStorage.getItem('interiit_data')).data.name}!</h1>
     <div className="card4">
           <TableContainer component={Paper} sx={{ maxWidth: 450 }}>
             <Table sx={{ minWidth: 450 }} aria-label="simple table">
@@ -103,7 +103,7 @@ function Profile() {
                   <TableCell component="th" scope="row">
                     LDAP:
                   </TableCell>
-                  <TableCell align="right">"LDAP"</TableCell>
+                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.roll_number}</TableCell>
                 </TableRow>
                 <TableRow
                   // key={row.name}
@@ -112,7 +112,7 @@ function Profile() {
                   <TableCell component="th" scope="row">
                     Batch:
                   </TableCell>
-                  <TableCell align="right">"LDAP"</TableCell>
+                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.batch}</TableCell>
                 </TableRow>
                 <TableRow
                   // key={row.name}
@@ -121,7 +121,7 @@ function Profile() {
                   <TableCell component="th" scope="row">
                     Branch:
                   </TableCell>
-                  <TableCell align="right">"LDAP"</TableCell>
+                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.branch}</TableCell>
                 </TableRow>
                 <TableRow
                   // key={row.name}
@@ -130,16 +130,7 @@ function Profile() {
                   <TableCell component="th" scope="row">
                     Programme:
                   </TableCell>
-                  <TableCell align="right">"LDAP"</TableCell>
-                </TableRow>
-                <TableRow
-                  // key={row.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    Resume:
-                  </TableCell>
-                  <TableCell align="right">"LDAP"</TableCell>
+                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.programme}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>

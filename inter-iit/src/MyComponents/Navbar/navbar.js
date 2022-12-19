@@ -40,8 +40,11 @@ function Navbar(){
   function handleLogout () {
     localStorage.removeItem('interiit_data')
     localStorage.removeItem('interiit_code')
+    localStorage.clear()
     window.location.replace("http://localhost:3000");
   }
+
+  const profilelink = 'https://gymkhana.iitb.ac.in' + JSON.parse(localStorage.getItem('interiit_data')).data.picture;
 
   return (
     <div className="navbar">
@@ -135,7 +138,7 @@ function Navbar(){
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+              <Avatar alt="Remy Sharp" src={profilelink} />
               </IconButton>
             </Tooltip>
             {/* <Menu

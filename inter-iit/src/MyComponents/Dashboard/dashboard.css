@@ -1,7 +1,8 @@
-.footers{
+.footers-dash{
     position: fixed;
     bottom: 0;
-    /* width: 100vw; */
+    width: 100vw;
+    margin: none;
     /* margin: 1rem; */
 }
 
