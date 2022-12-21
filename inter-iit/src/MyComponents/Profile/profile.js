@@ -44,7 +44,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Outlet } from 'react-router-dom';
 // import TextField from "@mui/material/TextField";
-
+import './profile.css'
 const drawerWidth = 240;
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -91,46 +91,70 @@ function Profile() {
     }
   };
   return (
-    <div><h1>Hi {JSON.parse(localStorage.getItem('interiit_data')).data.name}!</h1>
+    <div><h1 className="namefont" >Hi <b>{JSON.parse(localStorage.getItem('interiit_data')).data.name}!</b></h1>
     <div className="card4">
           <TableContainer component={Paper} sx={{ maxWidth: 450 }}>
-            <Table sx={{ minWidth: 450 }} aria-label="simple table">
+            <Table sx={{ minWidth: 450 }} aria-label="simple table" >
               <TableBody>
                 <TableRow
                   // key={row.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
+                    <span className="tablefont">
                     LDAP:
+                    </span>
                   </TableCell>
-                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.roll_number}</TableCell>
+                  <TableCell align="right">
+                  <span className="tablefont">
+                    {JSON.parse(localStorage.getItem('interiit_data')).data.roll_number}
+                    </span>
+                    </TableCell>
                 </TableRow>
                 <TableRow
                   // key={row.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
+                  <span className="tablefont">
                     Batch:
+                    </span>
                   </TableCell>
-                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.batch}</TableCell>
+                  <TableCell align="right">
+                  <span className="tablefont">
+                    {JSON.parse(localStorage.getItem('interiit_data')).data.batch}
+                    </span>
+                    </TableCell>
                 </TableRow>
                 <TableRow
                   // key={row.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
+                  <span className="tablefont">
                     Branch:
+                    </span>
                   </TableCell>
-                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.branch}</TableCell>
+                  <TableCell align="right">
+                  <span className="tablefont">
+                    {JSON.parse(localStorage.getItem('interiit_data')).data.branch}
+                  </span>
+                    </TableCell>
                 </TableRow>
                 <TableRow
                   // key={row.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
+                  <span className="tablefont">
                     Programme:
+                    </span>
                   </TableCell>
-                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.programme}</TableCell>
+                  <TableCell align="right">
+                  <span className="tablefont">
+                    {JSON.parse(localStorage.getItem('interiit_data')).data.programme}
+                    </span>
+                    </TableCell>
                 </TableRow>
               </TableBody>
             </Table>

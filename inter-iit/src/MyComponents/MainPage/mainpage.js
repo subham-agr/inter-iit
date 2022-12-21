@@ -65,15 +65,16 @@ function Mainpage() {
     <div className='mainpage'>
       <Navbar />
       <div className="card3">
-        <h1>Welcome!</h1>
+        <h1 style={{paddingLeft: "2rem", paddingTop:"1.2rem"}} className="myfont">Welcome!</h1>
         {/* {JSON.parse(localStorage.getItem('data')).data.name} */}
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat deserunt itaque accusantium, amet commodi veritatis tempora nobis doloribus nostrum laborum, dignissimos natus iusto iure debitis! Nobis voluptates sapiente esse odit quas laborum, quibusdam suscipit!</p>
+        <p style={{paddingLeft: "2rem"}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat deserunt itaque accusantium, amet commodi veritatis tempora nobis doloribus nostrum laborum, dignissimos natus iusto iure debitis! Nobis voluptates sapiente esse odit quas laborum, quibusdam suscipit!</p>
       </div>
-      <Grid container>
+      <Grid container spacing={2}>
         <Grid item xs={6}>
           <div className="skill">
-            <div className="small-header">
-              <button className="rank">1</button><span>Top Skills</span>
+            <div className="small-header" style={{paddingBottom: "1rem"}}>
+              {/* <button className="rank">1</button><span>Top Skills</span> */}
+              <span class="badge text-bg-primary">1</span> <b>Top Skills</b>
             </div>
             <h2>Please select your top 3 skills</h2>
             <Skill />
@@ -81,8 +82,8 @@ function Mainpage() {
         </Grid>
         <Grid item xs={6}>
           <div className="skill">
-            <div className="small-header">
-              <button className="rank">2</button><span>Other Skills</span>
+            <div className="small-header" style={{paddingBottom: "1rem"}}>
+            <span class="badge text-bg-primary">2</span> <b>Other Skills</b>
             </div>
             <h2>Add your other skills</h2>
             <Otherskill />
@@ -90,14 +91,14 @@ function Mainpage() {
         </Grid>
       </Grid>
       <div className="resume">
-            <div className="small-header">
-              <button className="rank">3</button><span>Resume</span>
+            <div className="small-header" style={{paddingBottom: "1rem"}}>
+            <span class="badge text-bg-primary">3</span> <b>Resume</b>
             </div>
-            <h2>Resume /CV / any similar document</h2>
+            <h2>Resume / CV / any similar document</h2>
             <Resume />
-            <h2>Thank You!</h2>
+            {/* <h2>Thank You!</h2> */}
           </div>
-      <Footer />
+          <Footer />
     </div>
   )
 }

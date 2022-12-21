@@ -27,6 +27,7 @@ export default function Authenticate() {
     axios
     .post('http://127.0.0.1:8000/userdata', data, {headers: {"Content-Type": "application/json"}})
     .then((res) => {
+      console.log("CHECK ", res)
       localStorage.setItem('interiit_data',JSON.stringify(res))
       // setTimeout(() => {
       //   window.location.reload();
