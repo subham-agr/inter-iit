@@ -37,12 +37,12 @@
   }
 }
 
-.skill{
+/* .skill{
   border-top: 1px solid black;  
   border-bottom: 1px solid black;  
-}
+} */
 
 .resume{
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
   padding: 2rem;
 }

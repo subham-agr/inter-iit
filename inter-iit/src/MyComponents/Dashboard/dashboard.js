@@ -134,7 +134,7 @@ function Dashboard() {
                   orientation="vertical"
                   aria-label="vertical outlined button group"
                   variant="contained"
-                  sx={{ width: "100%" }}
+                  sx={{ width: "100%", boxShadow: "none" }}
                 >
                   <Link to="problems" className="notext">
                     <Button
@@ -146,7 +146,7 @@ function Dashboard() {
                       </Typography>
                     </Button>
                   </Link>
-                  <Link to="problems" className="notext">
+                  <Link to="profile" className="notext">
                     <Button
                       startIcon={<AccountCircleIcon />}
                       sx={{ width: "100%", marginBottom: 1, color: "white" }}

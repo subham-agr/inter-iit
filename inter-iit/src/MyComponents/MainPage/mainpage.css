@@ -28,6 +28,25 @@ body{
 
 .resume{
     padding: 1rem;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    /* border-top: 1px solid black; */
+    /* border-bottom: 1px solid black; */
 }
+
+.phonenumber{
+    padding: 1rem;
+    /* border-top: 1px solid black; */
+    /* border-bottom: 1px solid black; */
+}
+
+.phonenumberfield{
+    margin: 2rem;
+}
+
+.griditem{
+    border-top: 1px solid black;
+    /* border-bottom: 1px solid black; */
+}
+
+/* #input-with-icon-textfield::placeholder{
+    color: #1976d2;
+} */

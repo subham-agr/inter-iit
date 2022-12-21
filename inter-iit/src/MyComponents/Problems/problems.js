@@ -161,7 +161,7 @@ function Problems() {
 
   return (
     <div className="card4">
-      <Card sx={{ minWidth: 100 }}>
+      <Card sx={{ minWidth: 800 }}>
         <CardContent>
           {ps.map((item) => {
             if (item.signed == true) {
