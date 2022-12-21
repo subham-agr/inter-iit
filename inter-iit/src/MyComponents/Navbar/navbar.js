@@ -1,24 +1,24 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
 // import AdbIcon from '@mui/icons-material/Adb';
-import ITClogo from '../../assets/ITClogoWhite.png'
-import './navbar.css'
+import ITClogo from "../../assets/ITClogoWhite.png";
+import "./navbar.css";
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = [ 'Dashboard', 'Logout'];
+const pages = ["Products", "Pricing", "Blog"];
+const settings = ["Dashboard", "Logout"];
 
-function Navbar(){
+function Navbar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -37,111 +37,125 @@ function Navbar(){
     setAnchorElUser(null);
   };
 
-  function handleLogout () {
-    localStorage.removeItem('interiit_data')
-    localStorage.removeItem('interiit_code')
-    localStorage.clear()
+  function handleLogout() {
+    localStorage.removeItem("interiit_data");
+    localStorage.removeItem("interiit_code");
+    localStorage.clear();
     window.location.replace("http://localhost:3000");
   }
 
-  const profilelink = 'https://gymkhana.iitb.ac.in' + JSON.parse(localStorage.getItem('interiit_data')).data.picture;
+  const profilelink =
+    "https://gymkhana.iitb.ac.in" +
+    JSON.parse(localStorage.getItem("interiit_data")).data.picture;
 
   return (
     <div className="navbar">
-        <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          {/* <img src={ITClogo} alt="" /> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/dashboard"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Inter-IIT
-          </Typography>
+      <AppBar
+        position="static"
+        color="primary"
+        style={{ backgroundColor: "rgb(12,109,253)" }}
+      >
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+            {/* <img src={ITClogo} alt="" /> */}
+            <Tooltip title="BOMBAY FTW">
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/dashboard"
               sx={{
-                display: { xs: 'block', md: 'none' },
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily:
+                "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+                fontWeight: 700,
+                color: "inherit",
+                textDecoration: "none",
               }}
-            >
+              >
+              Inter-IIT
+
+            </Typography>
+              </Tooltip>
+
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
                 <MenuItem key="Logout" onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <button onClick={handleLogout} href="/">
+                    <button onClick={handleLogout} href="/" className="btn">
                       Logout
                     </button>
                   </Typography>
                 </MenuItem>
-            </Menu>
-          </Box>
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-          {/* <img src={ITClogo} alt="" /> */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Inter-IIT
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <a href="http://localhost:3000/" className='Link'>
-              <Button className='btn-logout' sx={{ my: 2, color: 'white', display: 'block' }}>Logout</Button>
+              </Menu>
+            </Box>
+            {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
+            {/* <img src={ITClogo} alt="" /> */}
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+                fontWeight: 700,
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              Inter-IIT
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <a href="http://localhost:3000/" className="Link">
+                <Button
+                  className="btn-logout"
+                  sx={{ my: 2, color: "white", display: props.visible?"none":"block" }}
+                >
+                  Logout
+                </Button>
               </a>
-          </Box>
+            </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src={profilelink} />
-              </IconButton>
-            </Tooltip>
-            {/* <Menu
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Avatar">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src={profilelink} />
+                </IconButton>
+              </Tooltip>
+              {/* <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -163,11 +177,11 @@ function Navbar(){
                 </MenuItem>
               ))}
             </Menu> */}
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
     </div>
   );
-};
+}
 export default Navbar;

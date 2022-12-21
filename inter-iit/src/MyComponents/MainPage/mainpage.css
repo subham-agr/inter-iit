@@ -1,18 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 .footers{
     position: fixed;
     bottom: 0;
 }
-
+.mainpage{
+    background-color: aliceblue;
+}
+body{
+    background: black;
+}
 .skill{
     padding: 2rem;
+    height: 100%;
 }
-
+.myfont{
+    font-family: 'Poppins', sans-serif;
+}
 .card3{
-    padding: 2rem;
+    display: block !important;
+    justify-content:space-between;
+    width: 100vw !important;
+    min-height: 20vh !important;
+    /* border: 2px solid yellow; */
+    /* padding: 2rem; */
+    text-align: start !important;
 }
 
 .resume{
     padding: 1rem;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    /* border-top: 1px solid black; */
+    /* border-bottom: 1px solid black; */
 }
+
+.phonenumber{
+    padding: 1rem;
+    /* border-top: 1px solid black; */
+    /* border-bottom: 1px solid black; */
+}
+
+.phonenumberfield{
+    margin: 2rem;
+}
+
+.griditem{
+    border-top: 1px solid black;
+    /* border-bottom: 1px solid black; */
+}
+
+/* #input-with-icon-textfield::placeholder{
+    color: #1976d2;
+} */

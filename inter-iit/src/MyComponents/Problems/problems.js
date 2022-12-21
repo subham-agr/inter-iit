@@ -161,7 +161,7 @@ function Problems() {
 
   return (
     <div className="card4">
-      <Card sx={{ minWidth: 500 }}>
+      <Card sx={{ minWidth: 800 }}>
         <CardContent>
           {ps.map((item) => {
             if (item.signed == true) {
@@ -172,7 +172,11 @@ function Problems() {
                     aria-controls="panel2a-content"
                     id="panel2a-header"
                   >
-                    <Typography>{item.name}</Typography>
+                    <Typography>
+                    <span className="tablefont">
+                      {item.name}
+                      </span>
+                      </Typography>
                   </AccordionSummary>
                   <AccordionDetails className="details">
                     <a href={item.link}>Link to the Problem Statement</a>
@@ -280,7 +284,11 @@ function Problems() {
                     aria-controls="panel2a-content"
                     id="panel2a-header"
                   >
-                    <Typography>{item.name}</Typography>
+                    <Typography>
+                    <span className="tablefont">
+                      {item.name}
+                      </span>
+                      </Typography>
                   </AccordionSummary>
                   <AccordionDetails className="details">
                     <a href={item.link}>Link to the Problem Statement</a>
