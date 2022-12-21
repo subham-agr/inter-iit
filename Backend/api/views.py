@@ -103,9 +103,18 @@ def sign(request):
         reg.save()
         return JsonResponse({'success':True})
 
-@api_view(['GET','POST'])
+@api_view(['POST','PUT'])
 def admin(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        users = User.objects.filter(username=data['username'])
+        if len(users)==0:
+            return JsonResponse({"success":False},safe=False)
+        user = users[0]
+        if not user.check_password(data['password']):
+            return JsonResponse({"success":False},safe=False)
+        if not user.is_superuser:
+            return JsonResponse({"success":False},safe=False)
         pids = Problem.objects.all().order_by('-ps_id').values_list('ps_id').distinct()
         result = {}
         for p in pids:
@@ -116,9 +125,18 @@ def admin(request):
                 user = [p_name, reg.roll_number,reg.name,reg.mobile,reg.topskills,reg.skills,reg.resume.url,reg.understanding,reg.approach,reg.commitments,reg.comment]
                 user_list.append(user)
             result[p[0]] = user_list
+        result['success'] = True
         return JsonResponse(result)
-    elif request.method == 'POST':
+    elif request.method == 'PUT':
         data = JSONParser().parse(request)
+        users = User.objects.filter(username=data['username'])
+        if len(users)==0:
+            return JsonResponse({"success":False},safe=False)
+        user = users[0]
+        if not user.check_password(data['password']):
+            return JsonResponse({"success":False},safe=False)
+        if not user.is_superuser:
+            return JsonResponse({"success":False},safe=False)
         reg = Registration.objects.filter(ps_id = data['ps_id'], roll_number = data['roll_number'])[0]
         reg.comment = data['comment']
         reg.save()
