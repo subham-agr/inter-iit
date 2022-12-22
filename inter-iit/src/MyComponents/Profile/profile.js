@@ -97,12 +97,12 @@ function Profile() {
           Hi{" "}
           <b>{JSON.parse(localStorage.getItem("interiit_data")).data.name}!</b>
         </h1>
-        <TableContainer component={Paper} sx={{ maxWidth: 450 }}>
-          <Table sx={{ minWidth: 450 }} aria-label="simple table">
+        <TableContainer component={Paper} sx={{ maxWidth: 400, minWidth: 200 }} className="responsiveness">
+          <Table sx={{ minWidth: 50 }} aria-label="simple table">
             <TableBody>
               <TableRow
                 // key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 }, minWidth: 50 }}
               >
                 <TableCell component="th" scope="row">
                   <span className="tablefont">LDAP:</span>
@@ -111,7 +111,7 @@ function Profile() {
                   <span className="tablefont">
                     {
                       JSON.parse(localStorage.getItem("interiit_data")).data
-                        .roll_number
+                        .ldap
                     }
                   </span>
                 </TableCell>
@@ -121,7 +121,7 @@ function Profile() {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  <span className="tablefont">Batch:</span>
+                  <span className="tablefont">Year:</span>
                 </TableCell>
                 <TableCell align="right">
                   <span className="tablefont">

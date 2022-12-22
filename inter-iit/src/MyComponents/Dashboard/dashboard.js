@@ -91,6 +91,7 @@ function Dashboard() {
     window.location.replace("http://localhost:3000");
   }
   useEffect(() => {
+    console.log(JSON.parse(localStorage.getItem("interiit_data")))
     const token = JSON.parse(localStorage.getItem("interiit_data")).data.token;
     const data = {
       roll_number: JSON.parse(localStorage.getItem("interiit_data")).data
@@ -127,7 +128,7 @@ function Dashboard() {
       <Navbar visible="false" />
       <div>
         <Grid container>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Item>
               <div
                 className="button-cont"
@@ -196,9 +197,11 @@ function Dashboard() {
             </div> */}
             </Item>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={10}>
             <Item>
+              <div className="outletflex">
               <Outlet />
+              </div>
             </Item>
           </Grid>
         </Grid>

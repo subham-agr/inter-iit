@@ -29,7 +29,16 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { red } from "@mui/material/colors";
 // import TextField from '@mui/material/TextField';
 import AddIcon from "@mui/icons-material/Add";
+import Grid from '@mui/material/Grid';
 import { Link } from "react-router-dom";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 export default function Admin() {
   if (localStorage.getItem("ps_data") === null) {
@@ -93,20 +102,25 @@ export default function Admin() {
   //       // window.location.replace("http://localhost:3000/admin");
   //   });
 
-  const [comments,setComments]=useState([])
+  const [comments, setComments] = useState([]);
+  const [studcomment, setstudcomment] = useState();
+  const [rollnumber, setroll] = useState();
+  const [problemid, setproblem] = useState();
+  const [newcomment, setnewcomment] = useState();
   useEffect(() => {
+    if(localStorage.getItem('adminloginsuccess')===null){
+      window.location.replace("http://localhost:3000/admin_login")
+    }
     fetchComments();
-  }, [])
+  }, []);
   useEffect(() => {
-    console.log(comments)
-  }, [comments])
-  const fetchComments=async()=>{
-    const response=await axios('http://localhost:3000/psdata');
-    setComments(response.data)    
-  }
-
-
-
+    console.log(comments);
+  }, [comments]);
+  const fetchComments = async () => {
+    const response = await axios("http://localhost:3000/psdata");
+    setComments(response.data);
+    console.log(response.data)
+  };
 
   // var psdata = JSON.parse(localStorage.getItem('ps_data'))
 
@@ -123,17 +137,46 @@ export default function Admin() {
   const [open, setOpen] = React.useState(false);
   const [open1, setOpen1] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (event) => {
     setOpen(true);
+    setstudcomment(event.target.id)
+    setroll(event.target.elementTiming)
+    setproblem(event.target.name)
+    console.log(event)
+    // console.log(rollnumber, problemid)
   };
+
+  function handleData(event){
+    setroll(event.target.ariaLabel)
+    setproblem(event.target.ariaLevel)
+    console.log(event)
+  }
 
   const handleSubmit = () => {
     setOpen(false);
     setOpen1(true);
     console.log(inputs);
     const data = inputs;
-    axios
-      .put("http://localhost:8000/coupons", data, {
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    // console.log(inputs)
+  };
+
+  function handlecomment(event){
+    setnewcomment(event.target.value)
+  }
+
+  const handleCommentClose = (event) => {
+    setOpen(false);
+    console.log(event)
+    const data = {
+      roll_number: rollnumber,
+      ps_id: problemid,
+      comment: newcomment
+    }
+    axios.put("http://localhost:8000/ps_admin", data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${token}`,
@@ -142,14 +185,9 @@ export default function Admin() {
       .then((res) => {
         // setorder_admin(res.data)
         console.log(res);
-        setcoupon(res.data);
         // setcoupon(res.data)
       });
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    // console.log(inputs)
+    window.location.reload(true);
   };
 
   const handleClose1 = () => {
@@ -157,117 +195,15 @@ export default function Admin() {
     // console.log(inputs)
   };
 
-  function handleClick(event) {
-    // console.log(event.target.id)
-    const data = {
-      order_id: event.target.id,
-      tentative: value,
-    };
-    if (value === null) {
-      alert("Please fill the Tentative Delivery");
-    } else {
-      //   axios
-      //     .post("http://localhost:8000/order_admin", data, {
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //         Authorization: `Token ${admin_token}`,
-      //       },
-      //     })
-      //     .then((res) => {
-      //       // setorder_admin(res.data)
-      //       console.log(res);
-      //     });
-      window.location.reload(true);
-    }
-  }
-
-  function handleClick1(event) {
-    // console.log(event.target.id)
-    const data = {
-      order_id: event.target.id,
-    };
-    // axios
-    //   .post("http://localhost:8000/order_admin", data, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Token ${admin_token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     // setorder_admin(res.data)
-    //     console.log(res);
-    //   });
-    window.location.reload(true);
-  }
-
-  function handleOrder(event) {
-    setordered(true);
-    setdisptached(false);
-    handleClick(event);
-    // window.location.reload(true);
-  }
-
-  function handleDispatch(event) {
-    setdisptached(true);
-    setdelivered(false);
-    handleClick(event);
-    window.location.reload(true);
-  }
-
-  function handleDeliver(event) {
-    setdelivered(true);
-    handleClick(event);
-    window.location.reload(true);
-  }
-
-  const [value, setValue] = React.useState(null);
-  // const [isdisable, setdisable] = React.useState(true)
-  const handleChange = (newValue) => {
-    setValue(newValue);
-    console.log(newValue);
-  };
-
   function Logout() {
-    localStorage.removeItem("techpointsadmin_token");
+    localStorage.removeItem('adminloginsuccess')
     window.location.replace("http://localhost:3000/admin_login");
   }
 
   return (
-
     <div className="margin">
       <div className="heading">
         <h1>ADMIN PAGE</h1>
-      </div>
-      <div className="searchbar">
-        <Paper
-          component="form"
-          sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            width: 400,
-          }}
-        >
-          <InputBase
-            sx={{ ml: 1, flex: 1 }}
-            placeholder="Search with PS Name"
-            inputProps={{ "aria-label": "search products" }}
-            onChange={(event) => {
-              setSearchTerm(event.target.value);
-            }}
-          />
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-            <SearchIcon />
-          </IconButton>
-          {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-          <IconButton
-            color="primary"
-            sx={{ p: "10px" }}
-            aria-label="directions"
-          >
-            <DirectionsIcon />
-          </IconButton> */}
-        </Paper>
       </div>
       <div>
         <Button onClick={Logout}>Logout</Button>
@@ -275,7 +211,7 @@ export default function Admin() {
 
       {Object.keys(comments).map((key, index) => (
         <div>
-          <Accordion>
+          <Accordion sx={{ margin: 1 }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2a-content"
@@ -285,38 +221,31 @@ export default function Admin() {
             </AccordionSummary>
             <AccordionDetails>
               {Object.keys(comments[key]).map((item) => (
-                <Accordion>
+                <Accordion
+                sx={{ margin: 1 }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2a-content"
                     id="panel2a-header"
+                    sx={{maxWidth: 1250}}
                   >
-                    <Typography>{comments[key][item][1]}</Typography>
+                    <div className="link-card1">
+                    <Typography variant="body2" sx={{marginRight: "2rem"}}>{comments[key][item][2]}</Typography>
+                    <Typography variant="body2">{comments[key][item][3]}</Typography>
+                    <Typography variant="body2" sx={{marginLeft: "2rem"}}>
+                      <a
+                        href={"http://localhost:8000" + comments[key][item][6]}
+                      >
+                        Resume
+                      </a>
+                    </Typography>
+                    </div>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <div className="table-box">
-                      <TableContainer component={Paper} sx={{ maxWidth: 450 }}>
+                    <div>
+                    <TableContainer component={Paper} sx={{ maxWidth: 450, marginBottom: "2rem" }}>
                         <Table sx={{ minWidth: 450 }} aria-label="simple table">
                           <TableBody>
-                            <TableRow
-                              // key={row.name}
-                              sx={{
-                                "&:last-child td, &:last-child th": {
-                                  border: 0,
-                                },
-                              }}
-                            >
-                              <TableCell component="th" scope="row">
-                                Phone No:
-                              </TableCell>
-                              <TableCell align="right">
-                                {
-                                  JSON.parse(
-                                    localStorage.getItem("interiit_data")
-                                  ).data.roll_number
-                                }
-                              </TableCell>
-                            </TableRow>
                             <TableRow
                               // key={row.name}
                               sx={{
@@ -329,11 +258,7 @@ export default function Admin() {
                                 Top Skill:
                               </TableCell>
                               <TableCell align="right">
-                                {
-                                  JSON.parse(
-                                    localStorage.getItem("interiit_data")
-                                  ).data.batch
-                                }
+                              {comments[key][item][4]}
                               </TableCell>
                             </TableRow>
                             <TableRow
@@ -348,13 +273,45 @@ export default function Admin() {
                                 Other Skills:
                               </TableCell>
                               <TableCell align="right">
-                                {
-                                  JSON.parse(
-                                    localStorage.getItem("interiit_data")
-                                  ).data.branch
-                                }
+                              {comments[key][item][5]}
                               </TableCell>
                             </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                      <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                      <TableContainer component={Paper} sx={{ maxWidth: 1250 }}>
+                        <Table sx={{ minWidth: 450 }} aria-label="simple table">
+                          <TableBody>
+                            <TableRow
+                              // key={row.name}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                                maxHeight: "20px"
+                              }}
+                            >
+                              {/* <TableCell component="th" scope="row">
+                                Understanding:
+                              </TableCell> */}
+                              <TableCell 
+                              // align="right"
+                              >
+                                <div>
+                                  <h3>Understanding:</h3>
+                                  <div className="heightfix">{comments[key][item][7]}</div></div>
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                      </Grid>
+                      <Grid item xs={12}>
+                      <TableContainer component={Paper} sx={{ maxWidth: 1250 }}>
+                        <Table sx={{ minWidth: 450 }} aria-label="simple table">
+                          <TableBody>
                             <TableRow
                               // key={row.name}
                               sx={{
@@ -363,48 +320,92 @@ export default function Admin() {
                                 },
                               }}
                             >
-                              <TableCell component="th" scope="row">
-                                Resume:
-                              </TableCell>
-                              <TableCell align="right">
-                                {
-                                  JSON.parse(
-                                    localStorage.getItem("interiit_data")
-                                  ).data.programme
-                                }
+                              <TableCell>
+                              <div>
+                                  <h3>Approach:</h3>
+                                  <div className="heightfix">{comments[key][item][8]}</div></div>
                               </TableCell>
                             </TableRow>
                           </TableBody>
                         </Table>
                       </TableContainer>
+                      </Grid>
+                      <Grid item xs={12}>
+                      <TableContainer component={Paper} sx={{ maxWidth: 1250 }}>
+                        <Table sx={{ minWidth: 450 }} aria-label="simple table">
+                          <TableBody>
+                            <TableRow
+                              // key={row.name}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell>
+                              <div>
+                                  <h3>Commitments:</h3>
+                                  <div className="heightfix">{comments[key][item][9]}</div></div>
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                      </Grid>
+                      <Grid item xs={12}>
+                      <TableContainer component={Paper} sx={{ maxWidth: 1250 }}>
+                        <Table sx={{ minWidth: 450 }} aria-label="simple table">
+                          <TableBody>
+                            <TableRow
+                              // key={row.name}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell>
+                              <div>
+                                  <h3>Comments:</h3>
+                                  <div className="heightfix">{comments[key][item][10]}</div></div>
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                      </Grid>
+                      </Grid>
                       <div className="comment-box">
                         <Button
                           startIcon={<AddIcon />}
                           color="success"
                           variant="outlined"
                           onClick={handleClickOpen}
+                          id={comments[key][item][10]}
+                          elementTiming={comments[key][item][1]}
+                          name={key}
                         >
                           Add Comment
                         </Button>
-                        <Dialog open={open} onClose={handleClose}>
+                        <Dialog sx={{height: "80vh"}} fullWidth maxWidth={"xl"} open={open} onClose={handleClose}>
                           <DialogTitle>Add Comment</DialogTitle>
                           <DialogContent>
-                            <DialogContentText>
-                              Add comment for the student
-                            </DialogContentText>
                             <TextField
+                              multiline
                               autoFocus
                               margin="dense"
                               id="comment"
                               label="Comment"
                               type="textbox"
                               fullWidth
-                              variant="standard"
+                              variant="outlined"
+                              defaultValue={studcomment}
+                              onChange={handlecomment}
                             />
                           </DialogContent>
                           <DialogActions>
                             <Button onClick={handleClose}>Cancel</Button>
-                            <Button onClick={handleClose}>Submit</Button>
+                            <Button onClick={handleCommentClose}>Submit</Button>
                           </DialogActions>
                         </Dialog>
                       </div>
@@ -417,6 +418,5 @@ export default function Admin() {
         </div>
       ))}
     </div>
-
   );
 }

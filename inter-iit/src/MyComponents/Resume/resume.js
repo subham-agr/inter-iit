@@ -47,7 +47,8 @@ class Resume extends React.Component {
     formData.append("file", files[0]);
     formData.append("skills", JSON.stringify(skills));
     formData.append("otherskills", JSON.stringify(otherskills));
-    formData.append("phonenumber", JSON.stringify(phonenumber));
+    formData.append("phonenumber", phonenumber);
+    formData.append("ldapid", JSON.parse(localStorage.getItem("interiit_data")).data.ldap);
     console.log(formData);
     // this.setState(formData)
     // console.log(this.state)

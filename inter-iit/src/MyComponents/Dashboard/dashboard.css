@@ -30,3 +30,9 @@
     display: flex;
     justify-content: space-between;
 }
+
+.outletflex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

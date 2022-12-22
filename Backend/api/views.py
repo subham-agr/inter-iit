@@ -31,7 +31,7 @@ def posts(request):
     data = JSONParser().parse(request)
     print(data.get('code'))
     r = requests.post('https://gymkhana.iitb.ac.in/profiles/oauth/token/', data='code='+data.get('code')+'&grant_type=authorization_code', headers=headers) 
-    b = requests.get('https://gymkhana.iitb.ac.in/profiles/user/api/user/?fields=first_name,last_name,profile_picture,mobile,roll_number,contacts,program', headers={'Authorization':'Bearer '+r.json()['access_token']})
+    b = requests.get('https://gymkhana.iitb.ac.in/profiles/user/api/user/?fields=first_name,last_name,profile_picture,mobile,roll_number,contacts,program,email', headers={'Authorization':'Bearer '+r.json()['access_token']})
     data=b.json()
     print(data)
     if data['contacts'] is None:
@@ -48,7 +48,7 @@ def posts(request):
     else:
         user = users[0]
     token,created = Token.objects.get_or_create(user = user)
-    user_data=OrderedDict([('name',data['first_name'] + ' ' + data['last_name']),('picture',data['profile_picture']),('roll_number',data['roll_number']),('phone',data['mobile']),('contacts',data['contacts'][0]['number']),('token',token.key),('branch',data['program']['department_name']),('programme',data['program']['degree']),('batch',year)])
+    user_data=OrderedDict([('name',data['first_name'] + ' ' + data['last_name']),('picture',data['profile_picture']),('roll_number',data['roll_number']),('phone',data['mobile']),('contacts',data['contacts'][0]['number']),('token',token.key),('branch',data['program']['department_name']),('programme',data['program']['degree']),('batch',year),('ldap',data['email'])])
     print(user_data)
     return JsonResponse(user_data)
 
@@ -57,7 +57,7 @@ def index(request):
     if request.method == 'POST':
         if len(StudentForm.objects.filter(roll_number = request.POST['roll_number'])) == 0:
             handle_uploaded_file(request.FILES['file'])
-            student = StudentForm(name=request.POST['name'],roll_number = request.POST['roll_number'],mobile = request.POST["phonenumber"],topskills = request.POST['skills'],skills=request.POST['otherskills'],resume = request.FILES['file'].name)
+            student = StudentForm(name=request.POST['name'],roll_number = request.POST['roll_number'],ldapid = request.POST['ldapid'],mobile = request.POST["phonenumber"],topskills = request.POST['skills'],skills=request.POST['otherskills'],resume = request.FILES['file'].name)
             student.save()
             return JsonResponse({'success':True})
         return JsonResponse({'success':False})
@@ -97,10 +97,10 @@ def sign(request):
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
         reg = Registration.objects.filter(roll_number = data['roll_number'],ps_id = data['ps_id'])[0]
-        reg.understanding = data['understanding']
-        reg.approach = data['approach']
-        reg.commitments = data['commitments']
-        reg.save()
+        # reg.understanding = data['understanding']
+        # reg.approach = data['approach']
+        # reg.commitments = data['commitments']
+        reg.delete()
         return JsonResponse({'success':True})
 
 @api_view(['POST','PUT'])
@@ -109,12 +109,12 @@ def admin(request):
         data = JSONParser().parse(request)
         users = User.objects.filter(username=data['username'])
         if len(users)==0:
-            return JsonResponse({"success":False},safe=False)
+            return JsonResponse({"adminlogin":False},safe=False)
         user = users[0]
         if not user.check_password(data['password']):
-            return JsonResponse({"success":False},safe=False)
+            return JsonResponse({"adminlogin":False},safe=False)
         if not user.is_superuser:
-            return JsonResponse({"success":False},safe=False)
+            return JsonResponse({"adminlogin":False},safe=False)
         pids = Problem.objects.all().order_by('-ps_id').values_list('ps_id').distinct()
         result = {}
         for p in pids:
@@ -126,17 +126,9 @@ def admin(request):
                 user_list.append(user)
             result[p[0]] = user_list
         result['success'] = True
-        return JsonResponse(result)
+        return JsonResponse({'adminlogin':True})
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
-        users = User.objects.filter(username=data['username'])
-        if len(users)==0:
-            return JsonResponse({"success":False},safe=False)
-        user = users[0]
-        if not user.check_password(data['password']):
-            return JsonResponse({"success":False},safe=False)
-        if not user.is_superuser:
-            return JsonResponse({"success":False},safe=False)
         reg = Registration.objects.filter(ps_id = data['ps_id'], roll_number = data['roll_number'])[0]
         reg.comment = data['comment']
         reg.save()

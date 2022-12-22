@@ -6,3 +6,9 @@
 .tablefont{
     font-family: 'Martian Mono', monospace;
 }
+
+    @media screen and (max-width: 400px) {
+        .responsiveness{
+            width: 200px;
+        }
+    }

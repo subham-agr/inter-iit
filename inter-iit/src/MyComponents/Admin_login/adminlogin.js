@@ -46,8 +46,6 @@ export default function Adminlogin() {
             username: userid,
             password: pass
         };
-        localStorage.setItem('admin_username',userid)
-        localStorage.setItem('admin_password',pass)
 
         axios.post("http://localhost:8000/ps_admin", login_data, {
         headers: {
@@ -58,23 +56,12 @@ export default function Adminlogin() {
       .then((res) => {
         // setorder_admin(res.data)
         console.log(res);
-        if(res.data.success){ 
-            localStorage.setItem('ps_data',JSON.stringify(res.data))
+        if(res.data.adminlogin){ 
             console.log(res.data)
-            for(let i=0; i<Object.keys(res.data).length-1; i++){
-                var lengtharray = Object.values(res.data)[i].length 
-                console.log(Object.values(res.data)[i])
-                for(let j=0; j<lengtharray; j++){
-                    // console.log(Object.values(res.data)[i][j])
-                    console.log(Object.values(res.data)[i][j][0])
-                    console.log("none")
-                }
-                // console.log(i[0][0])
-            }
-            // localStorage.setItem("techpointsadmin_token", res.data.token);
+            localStorage.setItem('adminloginsuccess',true)
             window.location.replace("http://localhost:3000/admin");
         }
-        else if(res.data.success==false){
+        else if(res.data.adminlogin===false){
             alert("Invalid credentials!")
         }
       });

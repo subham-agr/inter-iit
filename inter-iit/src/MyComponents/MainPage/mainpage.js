@@ -42,6 +42,7 @@ const CssTextField = styled(TextField)({
 });
 
 var phonenumber;
+// const [phonenumber, setphone] = React.useState()
 
 function Mainpage() {
 
@@ -51,7 +52,8 @@ function Mainpage() {
 
   function handleChange(event) {
     // setphone(event.target.value)
-    phonenumber = event.target.value;
+    // setphone(event.target.value);
+    phonenumber = event.target.value
   }
 
   function submitForm(e) {
@@ -182,6 +184,7 @@ function Mainpage() {
                   ),
                 }}
                 variant="outlined"
+                onChange={handleChange}
               />
             </div>
             {/* <h2>Thank You!</h2> */}

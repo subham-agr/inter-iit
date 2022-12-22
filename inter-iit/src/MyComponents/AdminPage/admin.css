@@ -5,6 +5,7 @@
 .heading{
     display: flex;
     justify-content: center;
+    color: white;
 }
 
 .margin{
@@ -15,4 +16,21 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.link-card1{
+    display: flex;
+    width: max-content;
+    max-width: 1000px;
+    /* width: max-content; */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-box{
+    margin: 1rem;
+}
+
+.heightfix{
+    height: 100px;
 }
