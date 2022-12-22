@@ -95,6 +95,7 @@ export default function Admin() {
         // localStorage.setItem("techpointsadmin_token", res.data.token);
         // window.location.replace("http://localhost:3000/admin");
       } else if (res.data.success == false) {
+        psdata = {"success": true}
         window.location.replace("http://localhost:3000/admin_login");
         alert("Invalid credentials!");
       }
