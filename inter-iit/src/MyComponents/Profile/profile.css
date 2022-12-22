@@ -7,8 +7,20 @@
     font-family: 'Martian Mono', monospace;
 }
 
-    @media screen and (max-width: 400px) {
-        .responsiveness{
-            width: 200px;
-        }
+.tablecontainer{
+    width: 500px;
+    min-width: 300px;
+    padding: 2rem;
+}
+
+@media screen and (max-width: 520px) {
+    .tablecontainer{
+        width: 400px;
     }
+}
+
+@media screen and (max-width: 450px) {
+    .tablecontainer{
+        width: 200px;
+    }
+}

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Footer from "../footer/footer";
 import Navbar from "../Navbar/navbar";
 import "./problems.css";
+import Tooltip from '@mui/material/Tooltip';
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -22,6 +23,7 @@ import { useTheme } from "@mui/material/styles";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
+import FileOpenIcon from "@mui/icons-material/FileOpen";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -125,12 +127,14 @@ function Problems() {
     commitments: commitment,
   };
 
-  function handleDelete(event){
+  function handleDelete(event) {
     const deletedata = {
-      roll_number: JSON.parse(localStorage.getItem('interiit_data')).data.roll_number,
-      ps_id: event.target.id
-    }
-    axios.put("http://localhost:8000/sign", deletedata, {
+      roll_number: JSON.parse(localStorage.getItem("interiit_data")).data
+        .roll_number,
+      ps_id: event.target.id,
+    };
+    axios
+      .put("http://localhost:8000/sign", deletedata, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((resp) => {
@@ -143,7 +147,8 @@ function Problems() {
     if (reason !== "backdropClick") {
       setOpen(false);
     }
-    axios.post("http://localhost:8000/sign", data1, {
+    axios
+      .post("http://localhost:8000/sign", data1, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((resp) => {
@@ -157,11 +162,13 @@ function Problems() {
 
   const token = JSON.parse(localStorage.getItem("interiit_data")).data.token;
   const data = {
-    roll_number: JSON.parse(localStorage.getItem("interiit_data")).data.roll_number,
+    roll_number: JSON.parse(localStorage.getItem("interiit_data")).data
+      .roll_number,
   };
 
   useEffect(() => {
-    axios.post("http://localhost:8000/ps", data, {
+    axios
+      .post("http://localhost:8000/ps", data, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((resp) => {
@@ -171,70 +178,109 @@ function Problems() {
   }, []);
 
   return (
-    <div className="card4">
-      <Card sx={{ minWidth: 200, maxWidth: 800 }}>
+    <div className="card4 overflow">
+      <Card sx={{ minWidth: 200, maxWidth: 800, overflow: "auto", paddingTop: "270px"  }}>
         <CardContent>
           {ps.map((item) => (
             <div>
-              <Card sx={{ minWidth: 200, maxWidth: 800, overflowX: "auto" }}>
+              <Card sx={{ minWidth: 200, maxWidth: 800, overflowX: "auto", overflow: "auto" }}>
                 <CardContent>
                   <div className="link-card">
                     <Typography
                       gutterBottom
-                      variant="h5"
+                      variant="h6"
                       component="div"
-                      color="secondary"
-                      sx={{marginRight: "2rem"}}
+                      color="primary"
+                      sx={{ marginRight: "2rem" }}
                     >
-                      <a target="_blank" className="headlink" href={item.link}>
-                        <span className="tablefont">{item.name}</span>
-                      </a>
+                      <span className="tablefont">
+                        {item.name}
+                        <a
+                          target="_blank"
+                          // className="headlink"
+                          href={item.link}
+                        >
+                          <Tooltip title="Click to view Pdf">
+                          <FileOpenIcon />
+                          </Tooltip>
+                        </a>
+                      </span>
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{marginRight: "2rem"}}>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ marginRight: "2rem" }}
+                    >
                       <a target="_blank" href={item.extra_link}>
                         Extra Information
                       </a>
                     </Typography>
                     {item.deadline === null ? (
                       <Typography
-                      variant="body2"
-                      sx={{marginRight: "2rem"}}
-                      // sx={{ color: "green" }}
-                    >
-                      Yet to be Declared
-                    </Typography>
-                    ):(
+                        variant="body2"
+                        sx={{ marginRight: "2rem" }}
+                        // sx={{ color: "green" }}
+                      >
+                        Yet to be Declared
+                      </Typography>
+                    ) : (
                       <Typography
-                      variant="body2"
-                      color="success"
-                      sx={{ color: "green", marginRight: "2rem" }}
-                    >
-                      Deadline-{item.date}
-                    </Typography>
+                        variant="body2"
+                        color="success"
+                        sx={{ color: "green", marginRight: "2rem" }}
+                      >
+                        Deadline-{item.date}
+                      </Typography>
                     )}
                     {item.signed === true && item.deadline === false ? (
-                      <Button sx={{marginRight: "2rem"}} id={item.id} onClick={handleDelete} color="error" variant="outlined" size="small">
+                      <Button
+                        sx={{ marginRight: "2rem" }}
+                        id={item.id}
+                        onClick={handleDelete}
+                        color="error"
+                        variant="outlined"
+                        size="small"
+                      >
                         Unsign
                       </Button>
                     ) : (
                       <></>
                     )}
                     {item.signed === false && item.deadline === false ? (
-                      <Button sx={{marginRight: "2rem"}} id={item.id} onClick={handleSignOpen} variant="outlined" size="small">
+                      <Button
+                        sx={{ marginRight: "2rem" }}
+                        id={item.id}
+                        onClick={handleSignOpen}
+                        variant="outlined"
+                        size="small"
+                      >
                         Sign
                       </Button>
                     ) : (
                       <></>
                     )}
                     {item.signed === true && item.deadline === true ? (
-                      <Button sx={{marginRight: "2rem"}} id={item.id} disabled color="success" variant="outlined" size="small">
+                      <Button
+                        sx={{ marginRight: "2rem" }}
+                        id={item.id}
+                        disabled
+                        color="success"
+                        variant="outlined"
+                        size="small"
+                      >
                         Signed
                       </Button>
                     ) : (
                       <></>
                     )}
                     {item.signed === false && item.deadline === true ? (
-                      <Button sx={{marginRight: "2rem"}} id={item.id} disabled variant="outlined" size="small">
+                      <Button
+                        sx={{ marginRight: "2rem" }}
+                        id={item.id}
+                        disabled
+                        variant="outlined"
+                        size="small"
+                      >
                         Sign
                       </Button>
                     ) : (
@@ -243,7 +289,13 @@ function Problems() {
                   </div>
                 </CardContent>
               </Card>
-              <Dialog fullWidth={true} maxWidth={"xl"} disableEscapeKeyDown open={open} onClose={handleClose}>
+              <Dialog
+                fullWidth={true}
+                maxWidth={"xl"}
+                disableEscapeKeyDown
+                open={open}
+                onClose={handleClose}
+              >
                 <DialogTitle>Sign for the Problem</DialogTitle>
                 <DialogContent>
                   <Box

@@ -9,3 +9,9 @@
 .headlink{
     text-decoration: none;
 }
+
+.overflow{
+    padding: 2rem;
+    height: 80vh;
+    overflow: auto;
+}

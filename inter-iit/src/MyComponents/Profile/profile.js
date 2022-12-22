@@ -97,8 +97,9 @@ function Profile() {
           Hi{" "}
           <b>{JSON.parse(localStorage.getItem("interiit_data")).data.name}!</b>
         </h1>
-        <TableContainer component={Paper} sx={{ maxWidth: 400, minWidth: 200 }} className="responsiveness">
-          <Table sx={{ minWidth: 50 }} aria-label="simple table">
+        <div className="tablecontainer">
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 300 }} aria-label="simple table">
             <TableBody>
               <TableRow
                 // key={row.name}
@@ -167,6 +168,7 @@ function Profile() {
             </TableBody>
           </Table>
         </TableContainer>
+        </div>
       </div>
     </div>
   );

@@ -23,8 +23,7 @@ export default function Authenticate() {
       code: query.get("code"),
     };
 
-    axios
-      .post("http://127.0.0.1:8000/userdata", data, {
+    axios.post("http://127.0.0.1:8000/userdata", data, {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
@@ -45,10 +44,10 @@ export default function Authenticate() {
         // setLoading(false);
       })
       .finally(() => {
-        if (localStorage.getItem("interiit_code") === null) {
+        if (localStorage.getItem("interiit_data") === null || localStorage.getItem("interiit_code") === null) {
           alert("LOGIN PLEASE");
           window.location.replace("http://localhost:3000");
-        } else {
+        } else{
           window.location.replace("http://localhost:3000/dashboard/profile");
         }
       });

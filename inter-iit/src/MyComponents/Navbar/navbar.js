@@ -59,13 +59,13 @@ function Navbar(props) {
           <Toolbar disableGutters>
             {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
             {/* <img src={ITClogo} alt="" /> */}
-            <Tooltip title="BOMBAY FTW">
+            <Tooltip title="Inter IIT 11.0">
 
             <Typography
               variant="h6"
               noWrap
               component="a"
-              href="/dashboard"
+              href="/dashboard/profile"
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
@@ -76,7 +76,7 @@ function Navbar(props) {
                 textDecoration: "none",
               }}
               >
-              Inter-IIT
+              Inter-IIT 11.0
 
             </Typography>
               </Tooltip>
