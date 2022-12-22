@@ -16,7 +16,8 @@ urlpatterns = [
     path('ps',views.ps),
     path('sign',views.sign),
     path('ps_admin',views.admin),
-    path('psdata',views.psdata)
+    path('psdata',views.psdata),
+    path('check_admin',views.checkadmin)
     # path('', include(router.urls)),
     # path("files", views.index, name="files"),
 ]

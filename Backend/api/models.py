@@ -9,6 +9,7 @@ class StudentForm(models.Model):
     resume = models.FileField(blank=True,null=True)
     mobile = models.CharField(max_length=2000,blank=True,null=True)
     ldapid = models.EmailField(blank=True,null=True)
+    isadmin = models.BooleanField(blank=False, null=False,default=False)
     def __str__(self):
         return f"{self.roll_number}"
 class Problem(models.Model):

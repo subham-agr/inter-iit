@@ -37,12 +37,12 @@ function Navbar(props) {
     setAnchorElUser(null);
   };
 
-  function handleLogout() {
+  const handleLogout = () => {
     localStorage.removeItem("interiit_data");
     localStorage.removeItem("interiit_code");
     localStorage.clear();
     window.location.replace("http://localhost:3000");
-  }
+  };
 
   const profilelink =
     "https://gymkhana.iitb.ac.in" +
@@ -110,9 +110,9 @@ function Navbar(props) {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                <MenuItem key="Logout" onClick={handleCloseNavMenu}>
+                <MenuItem key="Logout" onClick={handleLogout}>
                   <Typography textAlign="center">
-                    <button onClick={handleLogout} href="/" className="btn">
+                    <button onClick={handleLogout}  className="btn">
                       Logout
                     </button>
                   </Typography>
@@ -139,10 +139,11 @@ function Navbar(props) {
               Inter-IIT
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <a href="http://localhost:3000/" className="Link">
+              <a  className="Link">
                 <Button
                   className="btn-logout"
                   sx={{ my: 2, color: "white", display: props.visible?"none":"block" }}
+                  onClick={handleLogout}
                 >
                   Logout
                 </Button>

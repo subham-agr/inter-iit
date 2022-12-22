@@ -41,9 +41,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Admin() {
-  if (localStorage.getItem("ps_data") === null) {
-    window.location.replace("http://localhost:3000/admin_login");
-  }
+  // if (localStorage.getItem("ps_data") === null) {
+  //   window.location.replace("http://localhost:3000/admin_login");
+  // }
 
   const [order_adminlist, setorder_admin] = React.useState([]);
   const [isordered, setordered] = useState(false);
@@ -234,7 +234,7 @@ export default function Admin() {
                     <Typography variant="body2">{comments[key][item][3]}</Typography>
                     <Typography variant="body2" sx={{marginLeft: "2rem"}}>
                       <a
-                        href={"http://localhost:8000" + comments[key][item][6]}
+                        href={"http://localhost:8000" + comments[key][item][6]} target="_blank"
                       >
                         Resume
                       </a>

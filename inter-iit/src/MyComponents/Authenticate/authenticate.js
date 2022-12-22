@@ -22,8 +22,9 @@ export default function Authenticate() {
     const data = {
       code: query.get("code"),
     };
+    var datasend=JSON.stringify(data)
 
-    axios.post("http://127.0.0.1:8000/userdata", data, {
+    axios.post("http://127.0.0.1:8000/userdata",  datasend, {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
@@ -45,15 +46,15 @@ export default function Authenticate() {
       })
       .finally(() => {
         if (localStorage.getItem("interiit_data") === null || localStorage.getItem("interiit_code") === null) {
-          alert("LOGIN PLEASE");
-          window.location.replace("http://localhost:3000");
+
+          // window.location.replace("http://localhost:3000");
         } else{
-          window.location.replace("http://localhost:3000/dashboard/profile");
+          window.location.replace("http://localhost:3000/wait");
         }
       });
   } else {
     console.log(JSON.parse(localStorage.getItem("interiit_data")).data.name);
-    window.location.replace("http://localhost:3000/dashboard/profile");
+    window.location.replace("http://localhost:3000/wait");
   }
   // }, []);
 

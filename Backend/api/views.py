@@ -148,8 +148,14 @@ def psdata(request):
             result[p[0]] = user_list
         
         return JsonResponse(result)
-
-
+@api_view(['POST'])
+def checkadmin(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        adm = StudentForm.objects.filter(roll_number = data['roll_number'])[0]
+        if adm.isadmin==True:
+            return JsonResponse({"isadmin":True},safe=False)
+        return JsonResponse({"isadmin":False},safe=False)
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset=StudentForm.objects.all()
