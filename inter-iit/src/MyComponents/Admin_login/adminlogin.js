@@ -59,8 +59,18 @@ export default function Adminlogin() {
         // setorder_admin(res.data)
         console.log(res);
         if(res.data.success){
-            localStorage.setItem('ps_data',res.data)
+            localStorage.setItem('ps_data',JSON.stringify(res.data))
             console.log(res.data)
+            for(let i=0; i<Object.keys(res.data).length-1; i++){
+                var lengtharray = Object.values(res.data)[i].length 
+                console.log(Object.values(res.data)[i])
+                for(let j=0; j<lengtharray; j++){
+                    // console.log(Object.values(res.data)[i][j])
+                    console.log(Object.values(res.data)[i][j][0])
+                    console.log("none")
+                }
+                // console.log(i[0][0])
+            }
             // localStorage.setItem("techpointsadmin_token", res.data.token);
             // window.location.replace("http://localhost:3000/admin");
         }

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -36,9 +36,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
 
 export default function Admin() {
-    if (localStorage.getItem("ps_data") === null) {
-      window.location.replace("http://localhost:3000/admin_login");
-    }
+  if (localStorage.getItem("ps_data") === null) {
+    window.location.replace("http://localhost:3000/admin_login");
+  }
 
   const [order_adminlist, setorder_admin] = React.useState([]);
   const [isordered, setordered] = useState(false);
@@ -71,6 +71,45 @@ export default function Admin() {
   //         console.log(res.data);
   //       });
   //   }, []);
+
+  const login_data = {
+    username: localStorage.getItem("admin_username"),
+    password: localStorage.getItem("admin_password"),
+  };
+
+  const [psdata, setpsdata] = React.useState();
+
+  axios.post("http://localhost:8000/ps_admin", login_data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    })
+    .then((res) => {
+      // setorder_admin(res.data)
+      console.log(res);
+      if (res.data.success) {
+        setpsdata(res.data)
+        delete psdata["success"];
+        console.log(psdata)
+        // localStorage.setItem("techpointsadmin_token", res.data.token);
+        // window.location.replace("http://localhost:3000/admin");
+      } else if (res.data.success == false) {
+        window.location.replace("http://localhost:3000/admin_login");
+        alert("Invalid credentials!");
+      }
+    });
+
+  // var psdata = JSON.parse(localStorage.getItem('ps_data'))
+
+  // for (let i = 0; i < Object.keys(psdata).length - 1; i++) {
+  //   var lengtharray = Object.values(psdata)[i];
+  //   console.log(Object.values(psdata)[i]);
+  //   // for(let j=0; j<lengtharray; j++){
+  //   //     // console.log(Object.values(psdata)[i][j])
+  //   // }
+  //   // console.log(i[0][0])
+  // }
 
   const [coupons, setcoupon] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -224,114 +263,150 @@ export default function Admin() {
       <div>
         <Button onClick={Logout}>Logout</Button>
       </div>
-      <div>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-            <Typography>Problem Statement 1</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-              >
-                <Typography>Student 2</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="table-box">
-              <TableContainer component={Paper} sx={{ maxWidth: 450 }}>
-            <Table sx={{ minWidth: 450 }} aria-label="simple table">
-              <TableBody>
-                <TableRow
-                  // key={row.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    Phone No:
-                  </TableCell>
-                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.roll_number}</TableCell>
-                </TableRow>
-                <TableRow
-                  // key={row.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    Top Skill:
-                  </TableCell>
-                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.batch}</TableCell>
-                </TableRow>
-                <TableRow
-                  // key={row.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    Other Skills:
-                  </TableCell>
-                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.branch}</TableCell>
-                </TableRow>
-                <TableRow
-                  // key={row.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    Resume:
-                  </TableCell>
-                  <TableCell align="right">{JSON.parse(localStorage.getItem('interiit_data')).data.programme}</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <div className="comment-box">
-            <Button startIcon={<AddIcon />} color="success" variant="outlined" onClick={handleClickOpen}>Add Comment</Button>
-            <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Comment</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Add comment for the student
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="comment"
-            label="Comment"
-            type="textbox"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Submit</Button>
-        </DialogActions>
-      </Dialog>
-          </div>
-          </div>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-              >
-                <Typography>Student 1</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          </AccordionDetails>
-        </Accordion>
-      </div>
+
+      {Object.keys(psdata).map((key, index) => (
+        <div>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>{key}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {Object.keys(psdata[key]).map((item) => (
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <Typography>{psdata[key][item][1]}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="table-box">
+                      <TableContainer component={Paper} sx={{ maxWidth: 450 }}>
+                        <Table sx={{ minWidth: 450 }} aria-label="simple table">
+                          <TableBody>
+                            <TableRow
+                              // key={row.name}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component="th" scope="row">
+                                Phone No:
+                              </TableCell>
+                              <TableCell align="right">
+                                {
+                                  JSON.parse(
+                                    localStorage.getItem("interiit_data")
+                                  ).data.roll_number
+                                }
+                              </TableCell>
+                            </TableRow>
+                            <TableRow
+                              // key={row.name}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component="th" scope="row">
+                                Top Skill:
+                              </TableCell>
+                              <TableCell align="right">
+                                {
+                                  JSON.parse(
+                                    localStorage.getItem("interiit_data")
+                                  ).data.batch
+                                }
+                              </TableCell>
+                            </TableRow>
+                            <TableRow
+                              // key={row.name}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component="th" scope="row">
+                                Other Skills:
+                              </TableCell>
+                              <TableCell align="right">
+                                {
+                                  JSON.parse(
+                                    localStorage.getItem("interiit_data")
+                                  ).data.branch
+                                }
+                              </TableCell>
+                            </TableRow>
+                            <TableRow
+                              // key={row.name}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component="th" scope="row">
+                                Resume:
+                              </TableCell>
+                              <TableCell align="right">
+                                {
+                                  JSON.parse(
+                                    localStorage.getItem("interiit_data")
+                                  ).data.programme
+                                }
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                      <div className="comment-box">
+                        <Button
+                          startIcon={<AddIcon />}
+                          color="success"
+                          variant="outlined"
+                          onClick={handleClickOpen}
+                        >
+                          Add Comment
+                        </Button>
+                        <Dialog open={open} onClose={handleClose}>
+                          <DialogTitle>Add Comment</DialogTitle>
+                          <DialogContent>
+                            <DialogContentText>
+                              Add comment for the student
+                            </DialogContentText>
+                            <TextField
+                              autoFocus
+                              margin="dense"
+                              id="comment"
+                              label="Comment"
+                              type="textbox"
+                              fullWidth
+                              variant="standard"
+                            />
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose}>Cancel</Button>
+                            <Button onClick={handleClose}>Submit</Button>
+                          </DialogActions>
+                        </Dialog>
+                      </div>
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+        </div>
+      ))}
     </div>
   );
 }
