@@ -58,7 +58,7 @@ export default function Adminlogin() {
       .then((res) => {
         // setorder_admin(res.data)
         console.log(res);
-        if(res.data.success){
+        if(res.data.success){ 
             localStorage.setItem('ps_data',JSON.stringify(res.data))
             console.log(res.data)
             for(let i=0; i<Object.keys(res.data).length-1; i++){
@@ -72,7 +72,7 @@ export default function Adminlogin() {
                 // console.log(i[0][0])
             }
             // localStorage.setItem("techpointsadmin_token", res.data.token);
-            // window.location.replace("http://localhost:3000/admin");
+            window.location.replace("http://localhost:3000/admin");
         }
         else if(res.data.success==false){
             alert("Invalid credentials!")

@@ -15,11 +15,7 @@ import Paper from "@mui/material/Paper";
 import "./admin.css";
 import axios from "axios";
 import { Button } from "@mui/material";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 import InputBase from "@mui/material/InputBase";
 // import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -77,29 +73,40 @@ export default function Admin() {
     password: localStorage.getItem("admin_password"),
   };
 
-  const [psdata, setpsdata] = React.useState();
+  // const [psdata2, setpsdata2] = React.useState({});
+  // var psdata;
+  // axios.post("http://localhost:8000/psdata", login_data, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Token ${token}`,
+  //     },
+  //   })
+  //   .then((res) => {
+  //     // setorder_admin(res.data)
+  //       psdata=res.data
+  //       console.log(psdata);
+  //       // setpsdata2(res.data)
+  //       // console.log(psdata2)
+  //       // const psdata = res.data;
+  //       // this.setState({psdata});
+  //       // localStorage.setItem("techpointsadmin_token", res.data.token);
+  //       // window.location.replace("http://localhost:3000/admin");
+  //   });
 
-  axios.post("http://localhost:8000/ps_admin", login_data, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-    })
-    .then((res) => {
-      // setorder_admin(res.data)
-      console.log(res);
-      if (res.data.success) {
-        setpsdata(res.data)
-        delete psdata["success"];
-        console.log(psdata)
-        // localStorage.setItem("techpointsadmin_token", res.data.token);
-        // window.location.replace("http://localhost:3000/admin");
-      } else if (res.data.success == false) {
-        psdata = {"success": true}
-        window.location.replace("http://localhost:3000/admin_login");
-        alert("Invalid credentials!");
-      }
-    });
+  const [comments,setComments]=useState([])
+  useEffect(() => {
+    fetchComments();
+  }, [])
+  useEffect(() => {
+    console.log(comments)
+  }, [comments])
+  const fetchComments=async()=>{
+    const response=await axios('http://localhost:3000/psdata');
+    setComments(response.data)    
+  }
+
+
+
 
   // var psdata = JSON.parse(localStorage.getItem('ps_data'))
 
@@ -226,6 +233,7 @@ export default function Admin() {
   }
 
   return (
+
     <div className="margin">
       <div className="heading">
         <h1>ADMIN PAGE</h1>
@@ -265,7 +273,7 @@ export default function Admin() {
         <Button onClick={Logout}>Logout</Button>
       </div>
 
-      {Object.keys(psdata).map((key, index) => (
+      {Object.keys(comments).map((key, index) => (
         <div>
           <Accordion>
             <AccordionSummary
@@ -276,14 +284,14 @@ export default function Admin() {
               <Typography>{key}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {Object.keys(psdata[key]).map((item) => (
+              {Object.keys(comments[key]).map((item) => (
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2a-content"
                     id="panel2a-header"
                   >
-                    <Typography>{psdata[key][item][1]}</Typography>
+                    <Typography>{comments[key][item][1]}</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <div className="table-box">
@@ -409,5 +417,6 @@ export default function Admin() {
         </div>
       ))}
     </div>
+
   );
 }

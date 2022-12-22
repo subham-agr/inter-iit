@@ -142,6 +142,23 @@ def admin(request):
         reg.save()
         return JsonResponse({'success':True})
 
+def psdata(request):
+    if request.method == 'GET':
+        pids = Problem.objects.all().order_by('-ps_id').values_list('ps_id').distinct()
+        result = {}
+        for p in pids:
+            regs = Registration.objects.filter(ps_id = p[0])
+            p_name = Problem.objects.get(ps_id = p[0]).ps_name
+            user_list = []
+            for reg in regs:
+                user = [p_name, reg.roll_number,reg.name,reg.mobile,reg.topskills,reg.skills,reg.resume.url,reg.understanding,reg.approach,reg.commitments,reg.comment]
+                user_list.append(user)
+            result[p[0]] = user_list
+        
+        return JsonResponse(result)
+
+
+
 class StudentViewSet(viewsets.ModelViewSet):
     queryset=StudentForm.objects.all()
     serializer_class=StudentSerializer
