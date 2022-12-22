@@ -104,6 +104,10 @@ function Dashboard() {
         console.log(resp.data.success);
         if (resp.data.success === false) {
           window.location.replace("http://localhost:3000/register");
+          localStorage.setItem('isregistered',false)
+        }
+        else{
+          localStorage.setItem('isregistered',true)
         }
       });
   });

@@ -1,0 +1,9 @@
+.link-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headlink{
+    text-decoration: none;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Footer from "../footer/footer";
 import Navbar from "../Navbar/navbar";
-// import "./dashboard.css";
+import "./problems.css";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -139,7 +139,7 @@ function Problems() {
         }
       });
 
-    window.location.reload()
+    window.location.reload();
   };
 
   const token = JSON.parse(localStorage.getItem("interiit_data")).data.token;
@@ -163,238 +163,112 @@ function Problems() {
     <div className="card4">
       <Card sx={{ minWidth: 800 }}>
         <CardContent>
-          {ps.map((item) => {
-            if (item.signed == true) {
-              return (
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                  >
-                    <Typography>
-                    <span className="tablefont">
-                      {item.name}
-                      </span>
-                      </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails className="details">
-                    <a href={item.link}>Link to the Problem Statement</a>
-                    {/* <Button>Sign</Button> */}
-                    <div className="toselect">
-                      {isselect ? (
-                        <Button
-                          onClick={handleClickOpen}
-                          variant="contained"
-                          color="success"
-                        >
-                          Selected
-                        </Button>
-                      ) : (
-                        <Button id={item.id} color="success" variant="outlined">
-                          Signed
-                        </Button>
-                      )}
-                    </div>
-                    <Dialog
-                      disableEscapeKeyDown
-                      open={open}
-                      onClose={handleClose}
+          {ps.map((item) => (
+            <div>
+              <Card sx={{ minWidth: 345 }}>
+                <CardContent>
+                  <div className="link-card">
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      color="secondary"
                     >
-                      <DialogTitle>Sign for the Problem</DialogTitle>
-                      <DialogContent>
-                        <Box
-                          component="form"
-                          sx={{ display: "flex", flexWrap: "wrap" }}
-                        >
-                          <FormControl sx={{ m: 1, width: 300 }}>
-                            {/* <InputLabel id="demo-multiple-name-label">Skills</InputLabel> */}
-                            <TextField
-                              id="outlined-textarea"
-                              label="Understanding"
-                              placeholder="Describe briefly the breakdown of the PS into domains and subparts"
-                              multiline
-                              margin="normal"
-                              onChange={handleunderstand}
-                              //   className="gapping"
-                            />
-                            <TextField
-                              id="outlined-textarea"
-                              label="Approach"
-                              placeholder="Explain your approach along with tentative timelines"
-                              multiline
-                              onChange={handleapproach}
-                              //   className="gapping"
-                              // sx={{marginbottom: 1}}
-                              margin="normal"
-                            />
-                            <TextField
-                              id="outlined-textarea"
-                              label="Commitments"
-                              placeholder="Describe your commitments in above mentioned timeleine"
-                              multiline
-                              margin="normal"
-                              onChange={handlecommit}
-                              //   className="gapping"
-                            />
-                            {/* <Select
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Name" />}
-          MenuProps={MenuProps}
-          renderValue={() => (
-            <></>
-          )}
-        >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              // style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {personName.map((value) => (
-                // <Chip key={value} label={value} />
-                <Chip label={value} variant="outlined" key={value} onDelete={handleDelete(value)}/>
-              ))}
-        </Box> */}
-                          </FormControl>
-                        </Box>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleSubmit}>Ok</Button>
-                      </DialogActions>
-                    </Dialog>
-                  </AccordionDetails>
-                </Accordion>
-              );
-            } else {
-              return (
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                  >
-                    <Typography>
-                    <span className="tablefont">
-                      {item.name}
-                      </span>
-                      </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails className="details">
-                    <a href={item.link}>Link to the Problem Statement</a>
-                    {/* <Button>Sign</Button> */}
-                    <div className="toselect">
-                      {isselect ? (
-                        <Button
-                          onClick={handleClickOpen}
-                          variant="contained"
-                          color="success"
-                        >
-                          Selected
-                        </Button>
-                      ) : (
-                        <Button
-                          id={item.id}
-                          onClick={handleSignOpen}
-                          // color={iscolor}
-                          variant="outlined"
-                        >
-                          Sign
-                        </Button>
-                      )}
-                    </div>
-                    <Dialog
-                      disableEscapeKeyDown
-                      open={open}
-                      onClose={handleClose}
+                      <a target="_blank" className="headlink" href={item.link}>
+                        <span className="tablefont">{item.name}</span>
+                      </a>
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      <a target="_blank" href={item.extra_link}>
+                        Extra Information
+                      </a>
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="success"
+                      sx={{ color: "green" }}
                     >
-                      <DialogTitle>Sign for the Problem</DialogTitle>
-                      <DialogContent>
-                        <Box
-                          component="form"
-                          sx={{ display: "flex", flexWrap: "wrap" }}
-                        >
-                          <FormControl sx={{ m: 1, width: 300 }}>
-                            {/* <InputLabel id="demo-multiple-name-label">Skills</InputLabel> */}
-                            <TextField
-                              id="outlined-textarea"
-                              label="Understanding"
-                              placeholder="Describe briefly the breakdown of the PS into domains and subparts"
-                              multiline
-                              margin="normal"
-                              onChange={handleunderstand}
-                              //   className="gapping"
-                            />
-                            <TextField
-                              id="outlined-textarea"
-                              label="Approach"
-                              placeholder="Explain your approach along with tentative timelines"
-                              multiline
-                              onChange={handleapproach}
-                              //   className="gapping"
-                              // sx={{marginbottom: 1}}
-                              margin="normal"
-                            />
-                            <TextField
-                              id="outlined-textarea"
-                              label="Commitments"
-                              placeholder="Describe your commitments in above mentioned timeleine"
-                              multiline
-                              margin="normal"
-                              onChange={handlecommit}
-                              //   className="gapping"
-                            />
-                            {/* <Select
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Name" />}
-          MenuProps={MenuProps}
-          renderValue={() => (
-            <></>
-          )}
-        >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              // style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
+                      {item.date}
+                    </Typography>
+                    {item.signed === true && item.deadline === false ? (
+                      <Button id={item.id} onClick={handleClickOpen} color="success" variant="outlined" size="small">
+                        Signed
+                      </Button>
+                    ) : (
+                      <></>
+                    )}
+                    {item.signed === false && item.deadline === false ? (
+                      <Button id={item.id} onClick={handleSignOpen} variant="outlined" size="small">
+                        Sign
+                      </Button>
+                    ) : (
+                      <></>
+                    )}
+                    {item.signed === true && item.deadline === true ? (
+                      <Button id={item.id} disabled color="success" variant="outlined" size="small">
+                        Signed
+                      </Button>
+                    ) : (
+                      <></>
+                    )}
+                    {item.signed === false && item.deadline === true ? (
+                      <Button id={item.id} disabled variant="outlined" size="small">
+                        Sign
+                      </Button>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+              <Dialog fullWidth={true} maxWidth={"xl"} disableEscapeKeyDown open={open} onClose={handleClose}>
+                <DialogTitle>Sign for the Problem</DialogTitle>
+                <DialogContent>
+                  <Box
+                    component="form"
+                    sx={{ display: "flex", flexWrap: "wrap", width: 1150 }}
+                  >
+                    <FormControl sx={{ m: 1, width: 1150 }}>
+                      {/* <InputLabel id="demo-multiple-name-label">Skills</InputLabel> */}
+                      <TextField
+                        id="outlined-textarea"
+                        fullWidth
+                        label="Understanding"
+                        placeholder="Describe briefly the breakdown of the PS into domains and subparts"
+                        multiline
+                        margin="normal"
+                        onChange={handleunderstand}
+                        //   className="gapping"
+                      />
+                      <TextField
+                        id="outlined-textarea"
+                        label="Approach"
+                        placeholder="Explain your approach along with tentative timelines"
+                        multiline
+                        onChange={handleapproach}
+                        //   className="gapping"
+                        // sx={{marginbottom: 1}}
+                        margin="normal"
+                      />
+                      <TextField
+                        id="outlined-textarea"
+                        label="Commitments"
+                        placeholder="Describe your commitments in above mentioned timeleine"
+                        multiline
+                        margin="normal"
+                        onChange={handlecommit}
+                        //   className="gapping"
+                      />
+                    </FormControl>
+                  </Box>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Cancel</Button>
+                  <Button onClick={handleSubmit}>Ok</Button>
+                </DialogActions>
+              </Dialog>
+            </div>
           ))}
-        </Select>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {personName.map((value) => (
-                // <Chip key={value} label={value} />
-                <Chip label={value} variant="outlined" key={value} onDelete={handleDelete(value)}/>
-              ))}
-        </Box> */}
-                          </FormControl>
-                        </Box>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleSubmit}>Ok</Button>
-                      </DialogActions>
-                    </Dialog>
-                  </AccordionDetails>
-                </Accordion>
-              );
-            }
-          })}
         </CardContent>
       </Card>
     </div>

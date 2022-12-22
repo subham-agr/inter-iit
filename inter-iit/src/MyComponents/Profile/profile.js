@@ -164,22 +164,6 @@ function Profile() {
                   </span>
                 </TableCell>
               </TableRow>
-              <TableRow
-                // key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  <span className="tablefont">Phone Number:</span>
-                </TableCell>
-                <TableCell align="right">
-                  <span className="tablefont">
-                    {
-                      JSON.parse(localStorage.getItem("interiit_data")).data
-                        .programme
-                    }
-                  </span>
-                </TableCell>
-              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>

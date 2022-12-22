@@ -16,6 +16,7 @@ class Problem(models.Model):
     ps_pdf = models.FileField(blank=True,null=True)
     extra_pdf = models.FileField(blank=True,null=True)
     deadline = models.BooleanField(blank=True, null=True)
+    date_dead = models.DateField(null=True, blank=True)
     def __str__(self):
         return f"{self.ps_id}"
 class Registration(models.Model):

@@ -7,6 +7,8 @@ import Dashboard from './MyComponents/Dashboard/dashboard';
 import Profile from './MyComponents/Profile/profile';
 import Problems from './MyComponents/Problems/problems';
 import Authenticate from './MyComponents/Authenticate/authenticate';
+import Admin from './MyComponents/AdminPage/admin';
+import Adminlogin from './MyComponents/Admin_login/adminlogin';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Mainpage />}></Route>
+          <Route path="/admin" element={<Admin />}></Route>
+          <Route path="/admin_login" element={<Adminlogin />}></Route>
           <Route path="/authen" element={<Authenticate />} />
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path='profile' element={<Profile />}></Route>

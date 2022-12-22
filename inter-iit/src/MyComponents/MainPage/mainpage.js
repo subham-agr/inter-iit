@@ -19,6 +19,8 @@ import { formData } from "../Resume/resume";
 //   return new URLSearchParams(useLocation().search);
 // }
 
+var register = localStorage.getItem("isregistered");
+
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
     color: '#1976d2',
@@ -43,6 +45,10 @@ var phonenumber;
 
 function Mainpage() {
 
+  if (register == "true") {
+    window.location.replace("http://localhost:3000/dashboard/profile");
+  }
+
   function handleChange(event) {
     // setphone(event.target.value)
     phonenumber = event.target.value;
@@ -60,7 +66,6 @@ function Mainpage() {
       .then((resp) => {
         if (resp.data.success == true) {
           // setregister(true)
-          localStorage.setItem("isregistered", true);
           window.location.replace("http://localhost:3000/dashboard/profile");
         }
       });
