@@ -46,25 +46,28 @@ export default function Adminlogin() {
             username: userid,
             password: pass
         };
+        localStorage.setItem('admin_username',userid)
+        localStorage.setItem('admin_password',pass)
 
-    //     axios
-    //   .post("http://localhost:8000/token", login_data, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Token ${token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     // setorder_admin(res.data)
-    //     console.log(res);
-    //     if(res.data.success){
-    //         localStorage.setItem("techpointsadmin_token", res.data.token);
-    //         window.location.replace("http://localhost:3000/order_admin");
-    //     }
-    //     else if(res.data.success==false){
-    //         alert("Invalid credentials!")
-    //     }
-    //   });
+        axios.post("http://localhost:8000/ps_admin", login_data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        // setorder_admin(res.data)
+        console.log(res);
+        if(res.data.success){
+            localStorage.setItem('ps_data',res.data)
+            console.log(res.data)
+            // localStorage.setItem("techpointsadmin_token", res.data.token);
+            // window.location.replace("http://localhost:3000/admin");
+        }
+        else if(res.data.success==false){
+            alert("Invalid credentials!")
+        }
+      });
 
         // console.log(login_data);
     }

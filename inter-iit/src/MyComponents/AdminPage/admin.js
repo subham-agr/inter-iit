@@ -36,9 +36,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
 
 export default function Admin() {
-  //   if (localStorage.getItem("techpointsadmin_token") === null) {
-  //     window.location.replace("http://localhost:3000/admin_login");
-  //   }
+    if (localStorage.getItem("ps_data") === null) {
+      window.location.replace("http://localhost:3000/admin_login");
+    }
 
   const [order_adminlist, setorder_admin] = React.useState([]);
   const [isordered, setordered] = useState(false);
