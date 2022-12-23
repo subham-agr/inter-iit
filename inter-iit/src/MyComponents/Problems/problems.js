@@ -327,7 +327,7 @@ function Problems() {
                       <TextField
                         id="outlined-textarea"
                         label="Commitments"
-                        placeholder="Describe your commitments in above mentioned timeleine"
+                        placeholder="Describe your commitments in above mentioned timeline"
                         multiline
                         margin="normal"
                         onChange={handlecommit}

@@ -83,8 +83,9 @@ function Mainpage() {
       console.log(value);
     }
     // console.log(formData);
-    if(formData.get("otherskills") === "[]" || formData.get("skills") === "[]" || formData.get("otherskills") === "undefined" || formData.get("skills") === "undefined" || formData.get("phonenumber") === undefined || formData.get("file") === undefined){
-      window.alert("Fill all fields first")
+    if(formData.get("otherskills") === "[]" || formData.get("skills") === "[]" || formData.get("otherskills") === "undefined" || formData.get("skills") === "undefined" || formData.get("phonenumber") === "undefined" || formData.get("file") === undefined){
+      window.alert("Fill all the fields first")
+      window.location.reload(true);
     }
     else{
       axios.post("http://localhost:8000/student", formData, {

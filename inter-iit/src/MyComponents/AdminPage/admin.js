@@ -423,7 +423,7 @@ export default function Admin() {
                                     <div>
                                       <h3>Comments:</h3>
                                       <div className="heightfix">
-                                      {comments[key][item][10]}
+                                      <pre>{comments[key][item][10]}</pre>
                                         {/* <Typography variant="body2">
                                           {comments[key][item][10]}
                                         </Typography> */}
