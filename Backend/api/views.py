@@ -90,7 +90,7 @@ def sign(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
         user = StudentForm.objects.get(roll_number=data['roll_number'])
-        reg = Registration(roll_number=data['roll_number'], ps_id=data['ps_id'], understanding=data['understanding'], approach=data['approach'], commitments=data['commitments'], name=user.name, mobile=user.mobile, topskills=user.topskills, skills=user.skills, resume=user.resume)
+        reg = Registration(roll_number=data['roll_number'], ps_id=data['ps_id'], understanding=data['understanding'], approach=data['approach'], commitments=data['commitments'], name=user.name, mobile=user.mobile, topskills=user.topskills, skills=user.skills, resume=user.resume,ldap=user.ldapid)
         reg.save()
         return JsonResponse({'success': True})
     elif request.method == 'PUT':
@@ -122,7 +122,7 @@ def admin(request):
             p_name = Problem.objects.get(ps_id=p[0]).ps_name
             user_list = []
             for reg in regs:
-                user = [p_name, reg.roll_number, reg.name, reg.mobile, reg.topskills, reg.skills, reg.resume.url, reg.understanding, reg.approach, reg.commitments, reg.comment]
+                user = [p_name, reg.roll_number, reg.name, reg.mobile, reg.topskills, reg.skills, reg.resume.url, reg.understanding, reg.approach, reg.commitments, reg.comment,reg.ldap]
                 user_list.append(user)
             result[p[0]] = user_list
         result['success'] = True
@@ -144,7 +144,7 @@ def psdata(request):
             p_name = Problem.objects.get(ps_id=p[0]).ps_name
             user_list = []
             for reg in regs:
-                user = [p_name, reg.roll_number, reg.name, reg.mobile, reg.topskills, reg.skills, reg.resume.url, reg.understanding, reg.approach, reg.commitments, reg.comment]
+                user = [p_name, reg.roll_number, reg.name, reg.mobile, reg.topskills, reg.skills, reg.resume.url, reg.understanding, reg.approach, reg.commitments, reg.comment,reg.ldap]
                 user_list.append(user)
             result[p[0]] = user_list
 

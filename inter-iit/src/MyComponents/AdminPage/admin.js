@@ -129,7 +129,7 @@ export default function Admin() {
     console.log(comments);
   }, [comments]);
   const fetchComments = async () => {
-    const response = await axios("http://localhost:3000/psdata");
+    const response = await axios("http://localhost:8000/psdata");
     setComments(response.data);
     console.log(response.data);
   };
@@ -242,21 +242,14 @@ export default function Admin() {
                     sx={{ maxWidth: 1250 }}
                   >
                     <div className="link-card1">
-                      <Typography variant="body2" sx={{ marginRight: "2rem" }}>
+                      <Typography variant="body2" sx={{ marginRight: "0.5rem" }}>
                         {comments[key][item][2]}
                       </Typography>
-                      <Typography variant="body2">
+                      <Typography variant="body2" sx={{ marginRight: "0.5rem" }}>
                         {comments[key][item][3]}
                       </Typography>
-                      <Typography variant="body2" sx={{ marginLeft: "2rem" }}>
-                        <a
-                          href={
-                            "http://localhost:8000" + comments[key][item][6]
-                          }
-                          target="_blank"
-                        >
-                          Resume
-                        </a>
+                      <Typography variant="body2" sx={{ marginRight: "0.5rem" }}>
+                        {comments[key][item][11]}
                       </Typography>
                     </div>
                   </AccordionSummary>
@@ -296,6 +289,28 @@ export default function Admin() {
                               </TableCell>
                               <TableCell align="right">
                                 {comments[key][item][5]}
+                              </TableCell>
+                            </TableRow>
+                            <TableRow
+                              // key={row.name}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component="th" scope="row">
+                                Resume:
+                              </TableCell>
+                              <TableCell align="right">
+                              <a
+                          href={
+                            "http://localhost:8000" + comments[key][item][6]
+                          }
+                          target="_blank"
+                        >
+                          Link to Resume
+                        </a>
                               </TableCell>
                             </TableRow>
                           </TableBody>

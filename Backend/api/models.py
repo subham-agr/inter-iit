@@ -32,6 +32,7 @@ class Registration(models.Model):
     roll_number = models.CharField(max_length=2000, blank=True, null=True)
     name = models.CharField(max_length=2000, blank=True, null=True)
     mobile = models.CharField(max_length=2000, blank=True, null=True)
+    ldap = models.CharField(max_length=2000, blank=True, null=True,default="null")
     ps_id = models.CharField(max_length=2000, blank=True, null=True)
     understanding = models.CharField(max_length=2000, blank=True, null=True)
     approach = models.CharField(max_length=2000, blank=True, null=True)
