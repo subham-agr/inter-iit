@@ -89,7 +89,7 @@ class Resume extends React.Component {
   // var upload = "Not Uploaded"
   render() {
     if (register == "true") {
-      window.location.replace("http://localhost:3000/dashboard/profile");
+      window.location.replace("http://localhost:3000/dashboard/problems");
     }
     return (
       <div style={{ margin: "2rem" }}>

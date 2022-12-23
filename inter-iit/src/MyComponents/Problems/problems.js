@@ -307,6 +307,7 @@ function Problems() {
                       <TextField
                         id="outlined-textarea"
                         fullWidth
+                        required = {true}
                         label="Understanding"
                         placeholder="Describe briefly the breakdown of the PS into domains and subparts"
                         multiline
@@ -317,6 +318,7 @@ function Problems() {
                       <TextField
                         id="outlined-textarea"
                         label="Approach"
+                        required = {true}
                         placeholder="Explain your approach along with tentative timelines"
                         multiline
                         onChange={handleapproach}
@@ -327,7 +329,8 @@ function Problems() {
                       <TextField
                         id="outlined-textarea"
                         label="Commitments"
-                        placeholder="Describe your commitments in above mentioned timeline"
+                        required = {true}
+                        placeholder="Describe your overlapping commitments till Feb 13 including the academic workload (credits and projects)"
                         multiline
                         margin="normal"
                         onChange={handlecommit}

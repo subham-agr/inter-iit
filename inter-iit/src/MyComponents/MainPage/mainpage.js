@@ -53,7 +53,7 @@ function Mainpage() {
   formData = new FormData();
 
   if (register === 'true') {
-    window.location.replace("http://localhost:3000/dashboard/profile");
+    window.location.replace("http://localhost:3000/dashboard/problems");
   }
 
   function handleChange(event) {
@@ -78,12 +78,16 @@ function Mainpage() {
     formData.append("phonenumber", phonenumber);
     formData.append("otherskills", JSON.stringify(otherskills));
     formData.append("skills", JSON.stringify(skills));
+    if (files===undefined) {
+      window.alert("Upload resume")
+      window.location.reload(true);
+    }
     formData.append("file", files[0]);
     for (const value of formData.values()) {
       console.log(value);
     }
     // console.log(formData);
-    if(formData.get("otherskills") === "[]" || formData.get("skills") === "[]" || formData.get("otherskills") === "undefined" || formData.get("skills") === "undefined" || formData.get("phonenumber") === "undefined" || formData.get("file") === undefined){
+    if(formData.get("otherskills") === "[]" || formData.get("skills") === "[]" || formData.get("otherskills") === "undefined" || formData.get("skills") === "undefined" || formData.get("phonenumber") === "undefined" || formData.get("phonenumber") === "" || formData.get("file") === undefined){
       window.alert("Fill all the fields first")
       window.location.reload(true);
     }

@@ -28,7 +28,7 @@ export default function Wait() {
             }
             else{
               localStorage.setItem('isregistered',true)
-              window.location.replace("http://localhost:3000/dashboard/profile");
+              window.location.replace("http://localhost:3000/dashboard/problems");
             }
           });
       });
