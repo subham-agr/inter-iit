@@ -17,8 +17,7 @@ export default function Wait() {
           roll_number: JSON.parse(localStorage.getItem("interiit_data")).data
             .roll_number,
         };
-        axios
-          .post("http://localhost:8000/check_reg", data, {
+        axios.post("http://localhost:8000/check_reg", data, {
             headers: { Authorization: `Token ${token}` },
           })
           .then((resp) => {

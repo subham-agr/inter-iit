@@ -59,6 +59,7 @@ function Navbar(props) {
           <Toolbar disableGutters>
             {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
             {/* <img src={ITClogo} alt="" /> */}
+            <Avatar alt="Bombay76" src="/static/images/avatar/logo.jpg" sx={{margin: "1rem"}}/>
             <Tooltip title="Inter IIT 11.0">
 
             <Typography

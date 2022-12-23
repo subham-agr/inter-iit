@@ -15,6 +15,7 @@ import Paper from "@mui/material/Paper";
 import "./admin.css";
 import axios from "axios";
 import { Button } from "@mui/material";
+import { withStyles } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
 import InputBase from "@mui/material/InputBase";
 // import Divider from "@mui/material/Divider";
@@ -29,14 +30,25 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { red } from "@mui/material/colors";
 // import TextField from '@mui/material/TextField';
 import AddIcon from "@mui/icons-material/Add";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
+// import {detectNewline} from 'detect-newline';
+import { detectNewline } from "detect-newline";
+
+const DarkerDisabledTextField = withStyles({
+  root: {
+    marginRight: 8,
+    "& .MuiInputBase-root.Mui-disabled": {
+      color: "red", // (default alpha is 0.38)
+    },
+  },
+})(TextField);
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: 'center',
+  textAlign: "center",
   color: theme.palette.text.secondary,
 }));
 
@@ -108,8 +120,8 @@ export default function Admin() {
   const [problemid, setproblem] = useState();
   const [newcomment, setnewcomment] = useState();
   useEffect(() => {
-    if(localStorage.getItem('adminloginsuccess')===null){
-      window.location.replace("http://localhost:3000/admin_login")
+    if (localStorage.getItem("adminloginsuccess") === null) {
+      window.location.replace("http://localhost:3000/admin_login");
     }
     fetchComments();
   }, []);
@@ -119,7 +131,7 @@ export default function Admin() {
   const fetchComments = async () => {
     const response = await axios("http://localhost:3000/psdata");
     setComments(response.data);
-    console.log(response.data)
+    console.log(response.data);
   };
 
   // var psdata = JSON.parse(localStorage.getItem('ps_data'))
@@ -139,17 +151,17 @@ export default function Admin() {
 
   const handleClickOpen = (event) => {
     setOpen(true);
-    setstudcomment(event.target.id)
-    setroll(event.target.elementTiming)
-    setproblem(event.target.name)
-    console.log(event)
+    setstudcomment(event.target.id);
+    setroll(event.target.elementTiming);
+    setproblem(event.target.name);
+    console.log(event);
     // console.log(rollnumber, problemid)
   };
 
-  function handleData(event){
-    setroll(event.target.ariaLabel)
-    setproblem(event.target.ariaLevel)
-    console.log(event)
+  function handleData(event) {
+    setroll(event.target.ariaLabel);
+    setproblem(event.target.ariaLevel);
+    console.log(event);
   }
 
   const handleSubmit = () => {
@@ -164,19 +176,20 @@ export default function Admin() {
     // console.log(inputs)
   };
 
-  function handlecomment(event){
-    setnewcomment(event.target.value)
+  function handlecomment(event) {
+    setnewcomment(event.target.value);
   }
 
   const handleCommentClose = (event) => {
     setOpen(false);
-    console.log(event)
+    console.log(event);
     const data = {
       roll_number: rollnumber,
       ps_id: problemid,
-      comment: newcomment
-    }
-    axios.put("http://localhost:8000/ps_admin", data, {
+      comment: newcomment,
+    };
+    axios
+      .put("http://localhost:8000/ps_admin", data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${token}`,
@@ -187,7 +200,7 @@ export default function Admin() {
         console.log(res);
         // setcoupon(res.data)
       });
-    window.location.reload(true);
+    fetchComments();
   };
 
   const handleClose1 = () => {
@@ -196,7 +209,7 @@ export default function Admin() {
   };
 
   function Logout() {
-    localStorage.removeItem('adminloginsuccess')
+    localStorage.removeItem("adminloginsuccess");
     window.location.replace("http://localhost:3000/admin_login");
   }
 
@@ -221,29 +234,38 @@ export default function Admin() {
             </AccordionSummary>
             <AccordionDetails>
               {Object.keys(comments[key]).map((item) => (
-                <Accordion
-                sx={{ margin: 1 }}>
+                <Accordion sx={{ margin: 1 }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2a-content"
                     id="panel2a-header"
-                    sx={{maxWidth: 1250}}
+                    sx={{ maxWidth: 1250 }}
                   >
                     <div className="link-card1">
-                    <Typography variant="body2" sx={{marginRight: "2rem"}}>{comments[key][item][2]}</Typography>
-                    <Typography variant="body2">{comments[key][item][3]}</Typography>
-                    <Typography variant="body2" sx={{marginLeft: "2rem"}}>
-                      <a
-                        href={"http://localhost:8000" + comments[key][item][6]} target="_blank"
-                      >
-                        Resume
-                      </a>
-                    </Typography>
+                      <Typography variant="body2" sx={{ marginRight: "2rem" }}>
+                        {comments[key][item][2]}
+                      </Typography>
+                      <Typography variant="body2">
+                        {comments[key][item][3]}
+                      </Typography>
+                      <Typography variant="body2" sx={{ marginLeft: "2rem" }}>
+                        <a
+                          href={
+                            "http://localhost:8000" + comments[key][item][6]
+                          }
+                          target="_blank"
+                        >
+                          Resume
+                        </a>
+                      </Typography>
                     </div>
                   </AccordionSummary>
                   <AccordionDetails>
                     <div>
-                    <TableContainer component={Paper} sx={{ maxWidth: 450, marginBottom: "2rem" }}>
+                      <TableContainer
+                        component={Paper}
+                        sx={{ maxWidth: 450, marginBottom: "2rem" }}
+                      >
                         <Table sx={{ minWidth: 450 }} aria-label="simple table">
                           <TableBody>
                             <TableRow
@@ -258,7 +280,7 @@ export default function Admin() {
                                 Top Skill:
                               </TableCell>
                               <TableCell align="right">
-                              {comments[key][item][4]}
+                                {comments[key][item][4]}
                               </TableCell>
                             </TableRow>
                             <TableRow
@@ -273,107 +295,157 @@ export default function Admin() {
                                 Other Skills:
                               </TableCell>
                               <TableCell align="right">
-                              {comments[key][item][5]}
+                                {comments[key][item][5]}
                               </TableCell>
                             </TableRow>
                           </TableBody>
                         </Table>
                       </TableContainer>
                       <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                      <TableContainer component={Paper} sx={{ maxWidth: 1250 }}>
-                        <Table sx={{ minWidth: 450 }} aria-label="simple table">
-                          <TableBody>
-                            <TableRow
-                              // key={row.name}
-                              sx={{
-                                "&:last-child td, &:last-child th": {
-                                  border: 0,
-                                },
-                                maxHeight: "20px"
-                              }}
+                        <Grid item xs={12}>
+                          <TableContainer
+                            component={Paper}
+                            sx={{ maxWidth: 1250 }}
+                          >
+                            <Table
+                              sx={{ minWidth: 450 }}
+                              aria-label="simple table"
                             >
-                              {/* <TableCell component="th" scope="row">
+                              <TableBody>
+                                <TableRow
+                                  // key={row.name}
+                                  sx={{
+                                    "&:last-child td, &:last-child th": {
+                                      border: 0,
+                                    },
+                                    maxHeight: "20px",
+                                  }}
+                                >
+                                  {/* <TableCell component="th" scope="row">
                                 Understanding:
                               </TableCell> */}
-                              <TableCell 
-                              // align="right"
-                              >
-                                <div>
-                                  <h3>Understanding:</h3>
-                                  <div className="heightfix">{comments[key][item][7]}</div></div>
-                              </TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                      </Grid>
-                      <Grid item xs={12}>
-                      <TableContainer component={Paper} sx={{ maxWidth: 1250 }}>
-                        <Table sx={{ minWidth: 450 }} aria-label="simple table">
-                          <TableBody>
-                            <TableRow
-                              // key={row.name}
-                              sx={{
-                                "&:last-child td, &:last-child th": {
-                                  border: 0,
-                                },
-                              }}
+                                  <TableCell
+                                  // align="right"
+                                  >
+                                    <div>
+                                      <h3>Understanding:</h3>
+                                      <div className="heightfix">
+                                        {comments[key][item][7]}
+                                      </div>
+                                    </div>
+                                  </TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TableContainer
+                            component={Paper}
+                            sx={{ maxWidth: 1250 }}
+                          >
+                            <Table
+                              sx={{ minWidth: 450 }}
+                              aria-label="simple table"
                             >
-                              <TableCell>
-                              <div>
-                                  <h3>Approach:</h3>
-                                  <div className="heightfix">{comments[key][item][8]}</div></div>
-                              </TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                      </Grid>
-                      <Grid item xs={12}>
-                      <TableContainer component={Paper} sx={{ maxWidth: 1250 }}>
-                        <Table sx={{ minWidth: 450 }} aria-label="simple table">
-                          <TableBody>
-                            <TableRow
-                              // key={row.name}
-                              sx={{
-                                "&:last-child td, &:last-child th": {
-                                  border: 0,
-                                },
-                              }}
+                              <TableBody>
+                                <TableRow
+                                  // key={row.name}
+                                  sx={{
+                                    "&:last-child td, &:last-child th": {
+                                      border: 0,
+                                    },
+                                  }}
+                                >
+                                  <TableCell>
+                                    <div>
+                                      <h3>Approach:</h3>
+                                      <div className="heightfix">
+                                        {comments[key][item][8]}
+                                      </div>
+                                    </div>
+                                  </TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TableContainer
+                            component={Paper}
+                            sx={{ maxWidth: 1250 }}
+                          >
+                            <Table
+                              sx={{ minWidth: 450 }}
+                              aria-label="simple table"
                             >
-                              <TableCell>
-                              <div>
-                                  <h3>Commitments:</h3>
-                                  <div className="heightfix">{comments[key][item][9]}</div></div>
-                              </TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                      </Grid>
-                      <Grid item xs={12}>
-                      <TableContainer component={Paper} sx={{ maxWidth: 1250 }}>
-                        <Table sx={{ minWidth: 450 }} aria-label="simple table">
-                          <TableBody>
-                            <TableRow
-                              // key={row.name}
-                              sx={{
-                                "&:last-child td, &:last-child th": {
-                                  border: 0,
-                                },
-                              }}
+                              <TableBody>
+                                <TableRow
+                                  // key={row.name}
+                                  sx={{
+                                    "&:last-child td, &:last-child th": {
+                                      border: 0,
+                                    },
+                                  }}
+                                >
+                                  <TableCell>
+                                    <div>
+                                      <h3>Commitments:</h3>
+                                      <div className="heightfix">
+                                        {comments[key][item][9]}
+                                      </div>
+                                    </div>
+                                  </TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TableContainer
+                            component={Paper}
+                            sx={{ maxWidth: 1250 }}
+                          >
+                            <Table
+                              sx={{ minWidth: 450 }}
+                              aria-label="simple table"
                             >
-                              <TableCell>
-                              <div>
-                                  <h3>Comments:</h3>
-                                  <div className="heightfix">{comments[key][item][10]}</div></div>
-                              </TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                      </Grid>
+                              <TableBody>
+                                <TableRow
+                                  // key={row.name}
+                                  sx={{
+                                    "&:last-child td, &:last-child th": {
+                                      border: 0,
+                                    },
+                                  }}
+                                >
+                                  <TableCell>
+                                    <div>
+                                      <h3>Comments:</h3>
+                                      <div className="heightfix">
+                                      {comments[key][item][10]}
+                                        {/* <Typography variant="body2">
+                                          {comments[key][item][10]}
+                                        </Typography> */}
+                                        {/* <TextField
+                                          multiline
+                                          margin="dense"
+                                          id="showcomment"
+                                          type="textbox"
+                                          variant="outlined"
+                                          disabled={true}
+                                          fullWidth
+                                          // sx={{color: "black"}}
+                                          defaultValue={comments[key][item][10]}
+                                        /> */}
+                                      </div>
+                                    </div>
+                                  </TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                        </Grid>
                       </Grid>
                       <div className="comment-box">
                         <Button
@@ -387,7 +459,13 @@ export default function Admin() {
                         >
                           Add Comment
                         </Button>
-                        <Dialog sx={{height: "80vh"}} fullWidth maxWidth={"xl"} open={open} onClose={handleClose}>
+                        <Dialog
+                          sx={{ height: "80vh" }}
+                          fullWidth
+                          maxWidth={"xl"}
+                          open={open}
+                          onClose={handleClose}
+                        >
                           <DialogTitle>Add Comment</DialogTitle>
                           <DialogContent>
                             <TextField

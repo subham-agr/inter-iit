@@ -1,12 +1,12 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../footer/footer";
 import Navbar from "../Navbar/navbar";
 import "./dashboard.css";
 import Typography from "@mui/material/Typography";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import { Button } from "@mui/material";
-
+import QuizIcon from "@mui/icons-material/Quiz";
 import { useTheme } from "@mui/material/styles";
 import { styled } from "@mui/material/styles";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -39,12 +39,10 @@ const Item = styled(Paper)(({ theme }) => ({
   borderRadius: 0,
 }));
 
-
-
 function Dashboard() {
-
-
-
+    if(localStorage.getItem('isregistered') === 'false'){
+      window.location.replace("http://localhost:3000/register")
+    }
   function handleLogout() {
     localStorage.removeItem("interiit_data");
     localStorage.removeItem("interiit_code");
@@ -52,7 +50,6 @@ function Dashboard() {
     window.location.replace("http://localhost:3000");
   }
   const [isadmin, setisadmin] = useState([]);
-
 
   useEffect(() => {
     fetchComments();
@@ -64,11 +61,16 @@ function Dashboard() {
     const token = JSON.parse(localStorage.getItem("interiit_data")).data.token;
 
     const newPost = {
-      roll_number: JSON.parse(localStorage.getItem("interiit_data")).data.roll_number,
-  };
-    const response = await axios.post("http://localhost:8000/check_admin",newPost,{headers: { Authorization: `Token ${token}` }});
+      roll_number: JSON.parse(localStorage.getItem("interiit_data")).data
+        .roll_number,
+    };
+    const response = await axios.post(
+      "http://localhost:8000/check_admin",
+      newPost,
+      { headers: { Authorization: `Token ${token}` } }
+    );
     setisadmin(response.data);
-    console.log(isadmin)
+    console.log(isadmin);
   };
 
   return (
@@ -89,8 +91,7 @@ function Dashboard() {
                   variant="contained"
                   sx={{ width: "100%", boxShadow: "none" }}
                 >
-
-                <Link to="profile" className="notext">
+                  <Link to="profile" className="notext">
                     <Button
                       startIcon={<AccountCircleIcon />}
                       sx={{ width: "100%", marginBottom: 1, color: "white" }}
@@ -103,7 +104,7 @@ function Dashboard() {
 
                   <Link to="problems" className="notext">
                     <Button
-                      startIcon={<DashboardIcon />}
+                      startIcon={<QuizIcon />}
                       sx={{ width: "100%", marginBottom: 1, color: "white" }}
                     >
                       <Typography sx={{ fontSize: "0.5rem", color: "white" }}>
@@ -111,6 +112,21 @@ function Dashboard() {
                       </Typography>
                     </Button>
                   </Link>
+
+                  {isadmin.isadmin === true ? (
+                    <Link to="/admin_login" className="notext">
+                      <Button
+                        startIcon={<DashboardIcon />}
+                        sx={{ width: "100%", marginBottom: 1, color: "white" }}
+                      >
+                        <Typography sx={{ fontSize: "0.5rem", color: "white" }}>
+                          Admin
+                        </Typography>
+                      </Button>
+                    </Link>
+                  ) : (
+                    <></>
+                  )}
 
                   <Link to="/" className="notext" onClick={handleLogout}>
                     <Button
@@ -122,19 +138,6 @@ function Dashboard() {
                       </Typography>
                     </Button>
                   </Link>
-                  {isadmin.isadmin===true ? (
-                  <Link to="/admin_login" className="notext">
-                    <Button
-                      startIcon={<DashboardIcon />}
-                      sx={{ width: "100%", marginBottom: 1, color: "white" }}
-                    >
-                      <Typography sx={{ fontSize: "0.5rem", color: "white" }}>
-                        Admin
-                      </Typography>
-                    </Button>
-                  </Link>):(
-                    <></>
-                  )}
                 </ButtonGroup>
                 {/* <Button startIcon={<DashboardIcon />} sx={{width: 200, marginBottom: 1, color: "black"}}>Dashboard</Button> */}
                 {/* <Button startIcon={<DashboardIcon />} sx={{width: 90, color: "black"}}>
@@ -164,7 +167,7 @@ function Dashboard() {
           <Grid item xs={10}>
             <Item>
               <div className="outletflex">
-              <Outlet />
+                <Outlet />
               </div>
             </Item>
           </Grid>

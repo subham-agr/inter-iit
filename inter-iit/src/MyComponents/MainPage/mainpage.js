@@ -12,12 +12,16 @@ import axios from "axios";
 // import AccountCircle from "@mui/icons-material/AccountCircle";
 import PhoneIcon from '@mui/icons-material/Phone';
 import { InputAdornment, TextField } from "@mui/material";
-import { formData } from "../Resume/resume";
+import { files } from "../Resume/resume";
+import { skills } from "../Skills/skills";
+import { otherskills } from "../otherskills/otherskills";
 // import { useLocation } from 'react-router-dom';
 
 // function useQuery() {
 //   return new URLSearchParams(useLocation().search);
 // }
+
+var formData;
 
 var register = localStorage.getItem("isregistered");
 
@@ -46,7 +50,9 @@ var phonenumber;
 
 function Mainpage() {
 
-  if (register == "true") {
+  formData = new FormData();
+
+  if (register === 'true') {
     window.location.replace("http://localhost:3000/dashboard/profile");
   }
 
@@ -60,25 +66,39 @@ function Mainpage() {
     // e.preventDefault();
     // axios.post('http://localhost:8000/student/', formData).then((resp)=>{ console.log(resp) });
     const token = JSON.parse(localStorage.getItem("interiit_data")).data.token;
-    console.log(token);
-    axios
-      .post("http://localhost:8000/student", formData, {
+    formData.append(
+      "name",
+      JSON.parse(localStorage.getItem("interiit_data")).data.name
+    );
+    formData.append(
+      "roll_number",
+      JSON.parse(localStorage.getItem("interiit_data")).data.roll_number
+    );
+    formData.append("ldapid", JSON.parse(localStorage.getItem("interiit_data")).data.ldap);
+    formData.append("phonenumber", phonenumber);
+    formData.append("otherskills", JSON.stringify(otherskills));
+    formData.append("skills", JSON.stringify(skills));
+    formData.append("file", files[0]);
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+    // console.log(formData);
+    if(formData.get("otherskills") === "[]" || formData.get("skills") === "[]" || formData.get("otherskills") === "undefined" || formData.get("skills") === "undefined" || formData.get("phonenumber") === undefined || formData.get("file") === undefined){
+      window.alert("Fill all fields first")
+    }
+    else{
+      axios.post("http://localhost:8000/student", formData, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((resp) => {
         if (resp.data.success == true) {
           // setregister(true)
+          localStorage.setItem('isregistered',true)
           window.location.replace("http://localhost:3000/dashboard/profile");
         }
       });
-    // headers: {
-    //   'Content-type': 'application/json; charset=UTF-8',
-    // },
-    // .catch(error => {
-    //       this.setState({ errorMessage: error.toString() });
-    //       console.error('There was an error!', error);
-    //   });
-  }
+    }
+    }
   // let query = useQuery();
   // if(localStorage.getItem('interiit_code')===null){
   //   localStorage.setItem('interiit_code',query.get('code'))
@@ -174,6 +194,7 @@ function Mainpage() {
                 label="Whatsapp No."
                 type="number"
                 placeholder="94923XXXXX"
+                required={true}
                 sx={{backgroundColor: "#ffffff"}}
                 // color="success"
                 InputProps={{

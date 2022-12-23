@@ -9,9 +9,19 @@ import axios from "axios";
 import { Button, touchRippleClasses } from "@mui/material";
 const baseURL = "http://localhost:8000/student/";
 // const data = useRef({});
-var formData;
 
+
+var files;
 var register = localStorage.getItem("isregistered");
+
+function returnfunc(){
+  if(otherskills === "[]" || skills === "[]" || otherskills === undefined || otherskills === "undefined" || skills === "undefined" || phonenumber === undefined){
+    return true
+  }
+  else{
+    return false
+  }
+}
 
 class Resume extends React.Component {
   // constructor(){
@@ -34,22 +44,12 @@ class Resume extends React.Component {
   // }
 
   changeHandler(event) {
-    const files = event.target.files;
-    formData = new FormData();
-    formData.append(
-      "name",
-      JSON.parse(localStorage.getItem("interiit_data")).data.name
-    );
-    formData.append(
-      "roll_number",
-      JSON.parse(localStorage.getItem("interiit_data")).data.roll_number
-    );
-    formData.append("file", files[0]);
-    formData.append("skills", JSON.stringify(skills));
-    formData.append("otherskills", JSON.stringify(otherskills));
-    formData.append("phonenumber", phonenumber);
-    formData.append("ldapid", JSON.parse(localStorage.getItem("interiit_data")).data.ldap);
-    console.log(formData);
+    files = event.target.files;
+    // formData.append("file", files[0]);
+    // console.log(formData.get("otherskills").length)
+    // for (const value of formData.values()) {
+    //   console.log(value);
+    // }
     // this.setState(formData)
     // console.log(this.state)
     // console.log(event.target.files[0])
@@ -99,6 +99,8 @@ class Resume extends React.Component {
           <input
             className="choose"
             name="upload"
+            required={true}
+            disabled={returnfunc}
             onChange={(e) => this.changeHandler(e)}
             type="file"
           />{" "}
@@ -118,4 +120,4 @@ class Resume extends React.Component {
   }
 }
 export default Resume;
-export {formData}
+export {files}

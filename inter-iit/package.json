@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.1",
     "dayjs": "^1.11.7",
+    "detect-newline": "^4.0.0",
     "material-ui-chip-input": "^2.0.0-beta.2",
     "react": "^18.2.0",
     "react-dayjs": "^0.3.2",

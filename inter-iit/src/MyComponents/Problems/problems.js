@@ -212,7 +212,7 @@ function Problems() {
                       sx={{ marginRight: "2rem" }}
                     >
                       <a target="_blank" href={item.extra_link}>
-                        Extra Information
+                        Important Information
                       </a>
                     </Typography>
                     {item.deadline === null ? (

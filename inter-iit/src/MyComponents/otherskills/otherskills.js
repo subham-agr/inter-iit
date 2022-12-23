@@ -68,9 +68,11 @@ export default function Otherskill() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const [newarray, setnewarray] = React.useState([]);
+
   var array = [];
 
-  const handleChange = (event) => {
+  const handleChange = (event,value) => {
     // const {
     //   target: { value },
     // } = event;
@@ -79,8 +81,7 @@ export default function Otherskill() {
     //   typeof value === "string" ? value.split(",") : value
     // );
 
-    array.push(event.target.innerHTML)
-    console.log(array)
+    setnewarray(value)
   };
 
   // const handleDelete = (chipToDelete) => () => {
@@ -97,10 +98,18 @@ export default function Otherskill() {
     if (reason !== 'backdropClick') {
       setOpen(false);
     }
-    console.log(array)
-    // setotherskills(array)
+  };
+
+  const handleSaveClose = (event, reason) => {
+    if (reason !== 'backdropClick') {
+      setOpen(false);
+    }
+    for(var i=0;i<newarray.length;i++){
+      array.push(newarray[i].label)
+    }
+    // setskillsarray(array)
     otherskills = array
-    console.log(otherskills)
+    console.log(JSON.stringify(otherskills))
   };
 
   // const handleDelete = (chipToDelete) => () => {
@@ -121,15 +130,18 @@ export default function Otherskill() {
           multiple
           id="tags-outlined"
           options={events}
+          freeSolo
           getOptionLabel={(option) => option.label}
           // filterSelectedOptions
           // defaultValue={[events[0]]}
-          onChange={(event)=>handleChange(event)}
+          onChange={handleChange}
+          filterSelectedOptions
           renderInput={(params) => (
             <TextField
               {...params}
               // variant="standard"
               label="OtherSkills"
+              required={true}
               // placeholder="Favorites"
             />
             )}
@@ -139,7 +151,7 @@ export default function Otherskill() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Ok</Button>
+          <Button onClick={handleSaveClose}>Ok</Button>
         </DialogActions>
       </Dialog>
     </div>

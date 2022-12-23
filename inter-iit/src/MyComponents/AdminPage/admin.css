@@ -34,3 +34,7 @@
 .heightfix{
     height: 100px;
 }
+
+.disablenone{
+    color: red;
+}

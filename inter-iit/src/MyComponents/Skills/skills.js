@@ -67,10 +67,29 @@ export default function Skill() {
 
   var array = [];
 
-  function handleChange(event){
+  const [newarray, setnewarray] = React.useState([]);
+  const [value, setvalue] = React.useState();
+  const [isdisable, setdisable] = React.useState(false);
+
+  const handleChange = (event, value) => {
     // setskillsarray([newvalue]);
-    array.push(event.target.innerHTML)
-    console.log(array)
+    // array.push(event.target.innerText)
+    // console.log(array)
+    console.log(value)
+    if(value.length >= 3){
+      setdisable(true)
+    }
+    else{
+      setdisable(false)
+    }
+    setnewarray(value)
+    // console.log(skillsarray)
+  }
+
+  function handleChange2(event){
+    // setskillsarray([newvalue]);
+    // array.push(event.target.innerText)
+    console.log(event)
     // console.log(skillsarray)
   }
 
@@ -82,10 +101,18 @@ export default function Skill() {
     if (reason !== 'backdropClick') {
       setOpen(false);
     }
-    console.log(array)
+  };
+
+  const handleSaveClose = (event, reason) => {
+    if (reason !== 'backdropClick') {
+      setOpen(false);
+    }
+    for(var i=0;i<newarray.length;i++){
+      array.push(newarray[i].label)
+    }
     // setskillsarray(array)
     skills = array
-    console.log(JSON.stringify(skills))
+    // console.log(JSON.stringify(skills))
   };
     // fetch('http://localhost:8000/student/',{
     //   method:'POST',
@@ -104,9 +131,12 @@ export default function Skill() {
 
   // console.log(JSON.stringify(skillsarray))
 
-  // const handleDelete = (chipToDelete) => () => {
-  //   setPersonName((personName) => personName.filter((person) => person !== chipToDelete))
-  // };
+  const handleDelete = (chipToDelete) => {
+    // setnewarray((newarray) => newarray.filter((element) => element !== chipToDelete))
+    array.splice(array.indexOf(chipToDelete),1)
+    console.log(array)
+    // console.log("aa")
+  };
 
   return (
     <div>
@@ -127,53 +157,29 @@ export default function Skill() {
         multiple
         id="tags-outlined"
         options={events}
+        freeSolo
         getOptionLabel={(option) => option.label}
         // filterSelectedOptions
         // defaultValue={[events[0]]}
-        onChange={(event)=>handleChange(event)}
+        onChange={handleChange}
+        getOptionDisabled={option => isdisable}
+        filterSelectedOptions
         renderInput={(params) => (
           <TextField
             {...params}
             // variant="standard"
             label="Skills"
+            required={true}
             // placeholder="Favorites"
           />
         )}
       />
-        {/* <Select
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Name" />}
-          MenuProps={MenuProps}
-          renderValue={() => (
-            <></>
-          )}
-        >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              // style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {personName.map((value) => (
-                // <Chip key={value} label={value} />
-                <Chip label={value} variant="outlined" key={value} onDelete={handleDelete(value)}/>
-              ))}
-        </Box> */}
       </FormControl>
           </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Ok</Button>
+          <Button onClick={handleSaveClose}>Ok</Button>
         </DialogActions>
       </Dialog>
     </div>
