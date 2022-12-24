@@ -154,7 +154,8 @@ function Navbar(props) {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Avatar">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src={profilelink} />
+                  <Avatar src={profilelink} 
+                  />
                 </IconButton>
               </Tooltip>
               {/* <Menu

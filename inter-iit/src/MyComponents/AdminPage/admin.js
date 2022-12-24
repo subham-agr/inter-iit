@@ -242,13 +242,13 @@ export default function Admin() {
                     sx={{ maxWidth: 1250 }}
                   >
                     <div className="link-card1">
-                      <Typography variant="body2" sx={{ marginRight: "0.5rem" }}>
+                      <Typography variant="body2" className="mobileview" sx={{ marginRight: "0.5rem" }}>
                         {comments[key][item][2]}
                       </Typography>
-                      <Typography variant="body2" sx={{ marginRight: "0.5rem" }}>
+                      <Typography variant="body2" className="mobileview" sx={{ marginRight: "0.5rem" }}>
                         {comments[key][item][3]}
                       </Typography>
-                      <Typography variant="body2" sx={{ marginRight: "0.5rem" }}>
+                      <Typography variant="body2" className="mobileview" sx={{ marginRight: "0.5rem" }}>
                         {comments[key][item][11]}
                       </Typography>
                     </div>
