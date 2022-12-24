@@ -3,44 +3,38 @@ from django.db import models
 
 # Create your models here.
 class StudentForm(models.Model):
-    roll_number = models.CharField(max_length=2000, blank=True, null=True, unique=True)
-    name = models.CharField(max_length=2000, blank=True, null=True)
-    topskills = models.CharField(max_length=2000, blank=True, null=True)
-    skills = models.CharField(max_length=2000, blank=True, null=True)
-    resume = models.FileField(blank=True, null=True)
-    mobile = models.CharField(max_length=2000, blank=True, null=True)
-    ldapid = models.EmailField(blank=True, null=True)
-    isadmin = models.BooleanField(blank=False, null=False, default=False)
+    roll_number = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    name = models.CharField(max_length=200, blank=False, null=False)
+    top_skills = models.CharField(max_length=2000, blank=False, null=False)
+    other_skills = models.CharField(max_length=2000, blank=True, null=True)
+    resume = models.URLField(max_length=2000, blank=False, null=False)
+    mobile = models.CharField(max_length=20, blank=False, null=False)
+    ldap_email = models.EmailField(max_length=200, blank=False, null=False)
+    is_admin = models.BooleanField(default=False, blank=False, null=False)
 
     def __str__(self):
-        return f"{self.roll_number}"
+        return f'{self.roll_number}'
 
 
 class Problem(models.Model):
-    ps_id = models.CharField(max_length=2000, blank=True, null=True, unique=True)
-    ps_name = models.CharField(max_length=2000, blank=True, null=True)
-    ps_pdf = models.FileField(blank=True, null=True)
-    extra_pdf = models.FileField(blank=True, null=True)
-    deadline = models.BooleanField(blank=True, null=True)
-    date_dead = models.DateField(null=True, blank=True)
+    ps_id = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    ps_name = models.CharField(max_length=2000, blank=False, null=False)
+    ps_pdf = models.FileField(blank=False, null=False)
+    addon_pdf = models.FileField(blank=False, null=False)
+    deadline = models.DateField(blank=False, null=True)
+    signable = models.BooleanField(default=False, blank=False)
 
     def __str__(self):
-        return f"{self.ps_id}"
+        return f'{self.ps_id}'
 
 
 class Registration(models.Model):
-    roll_number = models.CharField(max_length=2000, blank=True, null=True)
-    name = models.CharField(max_length=2000, blank=True, null=True)
-    mobile = models.CharField(max_length=2000, blank=True, null=True)
-    ldap = models.CharField(max_length=2000, blank=True, null=True,default="null")
-    ps_id = models.CharField(max_length=2000, blank=True, null=True)
-    understanding = models.CharField(max_length=2000, blank=True, null=True)
-    approach = models.CharField(max_length=2000, blank=True, null=True)
-    commitments = models.CharField(max_length=2000, blank=True, null=True)
-    topskills = models.CharField(max_length=2000, blank=True, null=True)
-    skills = models.CharField(max_length=2000, blank=True, null=True)
-    resume = models.FileField(blank=True, null=True)
+    student = models.ForeignKey(StudentForm, on_delete=models.CASCADE)
+    ps_id = models.CharField(max_length=20, blank=False, null=False)
+    understanding = models.CharField(max_length=20000, blank=True, null=False)
+    approach = models.CharField(max_length=20000, blank=True, null=False)
+    commitments = models.CharField(max_length=20000, blank=True, null=False)
     comment = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.roll_number} - {self.ps_id}"
+        return f'{self.student.roll_number} - {self.ps_id}'

@@ -42,7 +42,7 @@ def posts(request):
         user.save()
     else:
         user = users[0]
-    token, created = Token.objects.get_or_create(user=user)
+    token, _ = Token.objects.get_or_create(user=user)
     user_data = OrderedDict([('name', data['first_name'] + ' ' + data['last_name']), ('picture', data['profile_picture']), ('roll_number', data['roll_number']), ('phone', data['mobile']), ('contacts', data['contacts'][0]['number']), ('token', token.key), ('branch', data['program']['department_name']), ('programme', data['program']['degree']), ('batch', year), ('ldap', data['email'])])
     print(user_data)
     return JsonResponse(user_data)
@@ -53,13 +53,10 @@ def index(request):
     if request.method == 'POST':
         if len(StudentForm.objects.filter(roll_number=request.POST['roll_number'])) == 0:
             handle_uploaded_file(request.FILES['file'])
-            student = StudentForm(name=request.POST['name'], roll_number=request.POST['roll_number'], ldapid=request.POST['ldapid'], mobile=request.POST["phonenumber"], topskills=request.POST['skills'], skills=request.POST['otherskills'], resume=request.FILES['file'].name)
+            student = StudentForm(name=request.POST['name'], roll_number=request.POST['roll_number'], ldapid=request.POST['ldapid'], mobile=request.POST["phonenumber"], top_skills=request.POST['top_skills'], skills=request.POST['otherskills'], resume=request.FILES['file'].name)
             student.save()
             return JsonResponse({'success': True})
         return JsonResponse({'success': False})
-    # else:
-    #     student = StudentForms()
-    #     return render(request, "index.html", {'form':student})
 
 
 @api_view(['POST'])
@@ -90,15 +87,13 @@ def sign(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
         user = StudentForm.objects.get(roll_number=data['roll_number'])
-        reg = Registration(roll_number=data['roll_number'], ps_id=data['ps_id'], understanding=data['understanding'], approach=data['approach'], commitments=data['commitments'], name=user.name, mobile=user.mobile, topskills=user.topskills, skills=user.skills, resume=user.resume,ldap=user.ldapid)
+        reg = Registration(roll_number=data['roll_number'], ps_id=data['ps_id'], understanding=data['understanding'], approach=data['approach'], commitments=data['commitments'], name=user.name, mobile=user.mobile, topskills=user.top_skills, skills=user.other_skills, resume=user.resume, ldap=user.ldap_email)
         reg.save()
         return JsonResponse({'success': True})
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
-        reg = Registration.objects.filter(roll_number=data['roll_number'], ps_id=data['ps_id'])[0]
-        # reg.understanding = data['understanding']
-        # reg.approach = data['approach']
-        # reg.commitments = data['commitments']
+        student = StudentForm.objects.get(roll_number=data['roll_number'])
+        reg = Registration.objects.filter(student=student, ps_id=data['ps_id'])[0]
         reg.delete()
         return JsonResponse({'success': True})
 
@@ -122,7 +117,7 @@ def admin(request):
             p_name = Problem.objects.get(ps_id=p[0]).ps_name
             user_list = []
             for reg in regs:
-                user = [p_name, reg.roll_number, reg.name, reg.mobile, reg.topskills, reg.skills, reg.resume.url, reg.understanding, reg.approach, reg.commitments, reg.comment,reg.ldap]
+                user = [p_name, reg.roll_number, reg.name, reg.mobile, reg.topskills, reg.skills, reg.resume.url, reg.understanding, reg.approach, reg.commitments, reg.comment, reg.ldap]
                 user_list.append(user)
             result[p[0]] = user_list
         result['success'] = True
@@ -135,7 +130,7 @@ def admin(request):
         return JsonResponse({'success': True})
 
 
-def psdata(request):
+def ps_data(request):
     if request.method == 'GET':
         pids = Problem.objects.all().order_by('-ps_id').values_list('ps_id').distinct()
         result = {}
@@ -144,7 +139,7 @@ def psdata(request):
             p_name = Problem.objects.get(ps_id=p[0]).ps_name
             user_list = []
             for reg in regs:
-                user = [p_name, reg.roll_number, reg.name, reg.mobile, reg.topskills, reg.skills, reg.resume.url, reg.understanding, reg.approach, reg.commitments, reg.comment,reg.ldap]
+                user = [p_name, reg.roll_number, reg.name, reg.mobile, reg.topskills, reg.skills, reg.resume.url, reg.understanding, reg.approach, reg.commitments, reg.comment, reg.ldap]
                 user_list.append(user)
             result[p[0]] = user_list
 
@@ -152,11 +147,11 @@ def psdata(request):
 
 
 @api_view(['POST'])
-def checkadmin(request):
+def check_admin(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
         adm = StudentForm.objects.filter(roll_number=data['roll_number'])[0]
-        if adm.isadmin == True:
+        if adm.isadmin:
             return JsonResponse({"isadmin": True}, safe=False)
         return JsonResponse({"isadmin": False}, safe=False)
 

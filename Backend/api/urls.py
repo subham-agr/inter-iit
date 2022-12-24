@@ -1,24 +1,14 @@
-from django.urls import include, path
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-from . import views
-from .views import StudentViewSet
-
-# router = DefaultRouter()
-# router.register(r'student',StudentViewSet)
-# router = DefaultRouter()
-# router.register(r'student',StudentViewSet)
+import api.views as views
 
 urlpatterns = [
-    path("userdata", views.posts, name="auth"),
-    # path('', include(router.urls)),
+    path("user_data", views.posts),
     path("student", views.index),
-    path('check_reg',views.check_reg),
-    path('ps',views.ps),
-    path('sign',views.sign),
-    path('ps_admin',views.admin),
-    path('psdata',views.psdata),
-    path('check_admin',views.checkadmin)
-    # path('', include(router.urls)),
-    # path("files", views.index, name="files"),
+    path('check_reg', views.check_reg),
+    path('ps', views.ps),
+    path('sign', views.sign),
+    path('ps_admin', views.admin),
+    path('ps_data', views.ps_data),
+    path('check_admin', views.check_admin)
 ]
