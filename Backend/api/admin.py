@@ -1,6 +1,6 @@
 from django.contrib import admin
-from api.models import StudentForm
-from api.models import *
+
+from api.models import Problem, Registration, StudentForm
 
 # Register your models here.
 admin.site.register(StudentForm)
