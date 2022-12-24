@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-8v(__diok5$=hbplk%dg6k6+i=45_$m72i53sie01g-nlif#-z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['itc.gymkhana.iitb.ac.in','http://localhost:3000']
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -52,7 +52,7 @@ REST_FRAMEWORK = {
     )
 }
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
 ]
@@ -106,12 +106,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "Backend/api/static")
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "Backend/api/static") #Backend k jagah folder ka naam
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "Backend/api/media")
+MEDIA_URL = '/media/' #slash se pehele url ka naam
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "Backend/api/media") #Backend k jagah folder ka naam

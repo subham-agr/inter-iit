@@ -1,6 +1,6 @@
 import base64
 import datetime
-from typing import OrderedDict
+from collections import OrderedDict
 
 import requests
 from django.contrib.auth.models import User
